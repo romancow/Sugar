@@ -42,19 +42,6 @@ dateTest = function(d) {
   return test.apply(null, [testClone(d)].concat(args));
 }
 
-dateRangeEqual = function(a, b, message) {
-  var ast = a.start.getTime();
-  var aet = a.end.getTime();
-  var bst = b.start.getTime();
-  var bet = b.end.getTime();
-
-  // Allow for NaN values.
-  var startEqual = ast === bst || (ast !== ast && bst !== bst);
-  var endEqual   = aet === bet || (aet !== aet && bet !== bet);
-
-  equal(startEqual && endEqual, true, message);
-}
-
 getRelativeDate = function(year, month, day, hours, minutes, seconds, milliseconds) {
   var d = this.getFullYear ? new Date(this.getTime()) : new Date();
 

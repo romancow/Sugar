@@ -1,6 +1,7 @@
 # Sugar
 
 [![Build Status](https://travis-ci.org/andrewplummer/Sugar.svg)](http://travis-ci.org/andrewplummer/Sugar)
+[![Coverage Status](https://coveralls.io/repos/andrewplummer/Sugar/badge.svg?branch=master)](https://coveralls.io/r/andrewplummer/Sugar?branch=master)
 
 A Javascript library for working with native objects.
 
@@ -24,9 +25,9 @@ A Javascript library for working with native objects.
 ---------------------------------------
 
 
-# v2.0.0
+# v2.0.4
 
-### [sugar.js](https://raw.githubusercontent.com/andrewplummer/Sugar/2.0.0/dist/sugar.js) | [sugar.min.js (24kb gz)](https://raw.githubusercontent.com/andrewplummer/Sugar/2.0.0/dist/sugar.min.js)
+### [sugar.js](https://raw.githubusercontent.com/andrewplummer/Sugar/2.0.4/dist/sugar.js) | [sugar.min.js (24kb gz)](https://raw.githubusercontent.com/andrewplummer/Sugar/2.0.4/dist/sugar.min.js)
 
 
 ## Install

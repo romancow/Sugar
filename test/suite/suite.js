@@ -88,6 +88,10 @@
     equal(sortOnStringValue(a), sortOnStringValue(b), message);
   }
 
+  assertRangeEqual = function(a, b, message) {
+    equal(isEqual(a.start, b.start) && isEqual(a.end, b.end), true, message);
+  }
+
   notEqual = function (actual, expected, message) {
     equal(actual !== expected, true, message + ' | strict equality', 1);
   }
@@ -348,7 +352,7 @@
     if (type === 'string' || type === 'boolean' || one == null) {
       return one === two;
     } else if (type === 'number') {
-      return typeof two === 'number' && ((isNaN(one) && isNaN(two)) || one === two);
+      return typeof two === 'number' && numberIsEqual(one, two);
     }
 
     klass = testInternalToString.call(one);
@@ -363,11 +367,15 @@
       return objectIsEqual(one, two) && klass === testInternalToString.call(two);
     } else if (klass === '[object Number]' && isNaN(one) && isNaN(two)) {
       return true;
-    } else if (klass === '[object String]') {
+    } else if (klass === '[object String]' || klass === '[object Number]') {
       return one.valueOf() === two.valueOf();
     }
 
     return one === two;
+  }
+
+  function numberIsEqual(one, two) {
+    return (isNaN(one) && isNaN(two)) || (one === two && 1 / one === 1 / two);
   }
 
   // Arrays and objects must be treated separately here because in IE arrays with undefined
@@ -377,7 +385,7 @@
     var i, result = true, key;
     if (one === two) {
       return true;
-    } else if (one.length !== two.length) {
+    } else if (!two || one.length !== two.length) {
       return false;
     }
 
@@ -433,15 +441,12 @@
   }
 
   function dateIsEqual(a, b) {
-    // Margin of error in ms.
-    var margin = 80;
-    if (typeof b == 'number') {
-      var d = new Date();
-      d.setTime(d.getTime() + b);
-      b = d;
+    var aTime = a.getTime(), bTime = b.getTime(), margin = 80;
+
+    if (aTime !== aTime && bTime !== bTime) {
+      return true;
     }
-    var offset = Math.abs(a.getTime() - b.getTime());
-    return offset < margin;
+    return Math.abs(aTime - bTime) < margin;
   }
 
   function sortOnStringValue(arr) {

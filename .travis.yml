@@ -4,7 +4,6 @@ node_js:
   - "iojs"
   - "5"
   - "4"
-  - "0.12"
 branches:
   only:
     - master
@@ -13,4 +12,8 @@ cache:
     - node_modules
 git:
   depth: 3
-install: npm install sinon
+install: npm install gulp gulp-util gulp-file yargs sinon istanbul coveralls
+before_script:
+  - 'gulp build:dev'
+after_success:
+  - 'npm run coveralls'

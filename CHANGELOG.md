@@ -1,3 +1,33 @@
+v2.0.5
+======
+
+- More fixes for Typescript declarations including better handling of generics.
+- Restored VERSION property to the core.
+
+v2.0.4
+======
+
+- Fixed issue with Typescript declarations not exporting all packages.
+
+v2.0.3
+======
+
+- Updated Typescript declaration files to better handle modules.
+- Added type guards to isString... declarations.
+- Fixed issue with Range date unit methods on invalid ranges.
+
+v2.0.2
+======
+
+- Added Typescript declaration files.
+
+
+v2.0.1
+======
+
+- Fixed issues with locales not being ignored in modularized repos.
+
+
 v2.0.0
 ======
 
