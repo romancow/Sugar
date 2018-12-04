@@ -18,9 +18,9 @@ namespace('Date', function () {
 
     // Issue #219
 
-    test(testCreateDate('29:00'),  true,  'hours may fall outside range');
-    test(testCreateDate('30:00'),  false, 'no hours allowed outside range');
-    test(testCreateDate('139:00'), false, '3 digits not supported');
+    assertDateNotParsed('29:00');
+    assertDateNotParsed('30:00');
+    assertDateNotParsed('139:00');
 
     // These dates actually will parse out natively in V8
     // equal(Date.create('05:75').isValid(), false, 'no minutes allowed outside range');
@@ -128,6 +128,12 @@ namespace('Date', function () {
     assertDateParsed('Friday',    opt, testCreateDate('Friday'));
     assertDateParsed('Saturday',  opt, testCreateDate('Saturday'));
 
+    // Relative dates with future
+    var d = testDateSet(getRelativeDateReset(0, 0, 0), { date: 15 });
+    if (d < now) {
+      d.setMonth(d.getMonth() + 1);
+    }
+    assertDateParsed('the 15th', { future: true }, d);
 
     // fromUTC option
 
@@ -191,6 +197,21 @@ namespace('Date', function () {
     equal(params.month, 0, 'Set object should expose month');
     equal(params.date, 13, 'Set object should expose date');
 
+    // Issue #572 No disambiguation of separated units
+    assertDateParsed('this week tuesday at 5pm', { future: true }, testGetWeekday(2, 0, 17));
+    assertDateParsed('today at 5pm', { future: true }, new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17));
+
+    // Issue #582 "now" with "fromUTC"
+    assertDateParsed('now', { fromUTC: true }, new Date(), 'now with fromUTC');
+
+    // Issue #569 Incorrect specificity and missing time
+    var params = {};
+    testCreateDate('yesterday at 2:30pm', { params: params });
+    equal(params.hour, 14);
+    equal(params.minute, 30);
+    equal(params.day, -1);
+    equal(params.specificity, 2);
+
   });
 
   group('Create | Simple', function() {
@@ -218,9 +239,11 @@ namespace('Date', function () {
     // which is abbreviated ISO-8601 format: yy-mm-dd
     assertDateParsed('01/02/03', new Date(2003, 0, 2));
 
-    var d = testCreateDate('08/25/0001');
-    d = new Date(d.getTime() - (d.getTimezoneOffset() * 60 * 1000));
-    equal(d, new Date(-62115206400000), 'mm/dd/0001');
+    // Failing in Chrome 68
+    // Chromium Issue tracker #867806
+    var d = testSubtractTimezoneOffset(testCreateDate('08/25/0001'));
+    //equal(d, new Date(-62115206400000), 'mm/dd/0001');
+
   });
 
   group('Create | American Style Dashes', function() {
@@ -261,7 +284,10 @@ namespace('Date', function () {
 
     // Dots
     assertDateParsed('08.10.1978', 'en-GB', new Date(1978, 9, 8));
-    assertDateParsed('8.10.1978', 'en-GB',  new Date(1978, 9, 8));
+    assertDateParsed('8.10.1978',  'en-GB', new Date(1978, 9, 8));
+    assertDateParsed('8.10',       'en-GB', new Date(thisYear, 9, 8));
+    assertDateParsed('1978.8.10',  'en-GB', new Date(1978, 7, 10));
+    assertDateParsed('10.1978',    'en-GB', new Date(1978, 9, 1));
 
     assertDateParsed('08-05-05', 'en-GB', new Date(2005, 4, 8));
     assertDateParsed('8/10/85', new Date(1985, 7, 10));
@@ -339,6 +365,9 @@ namespace('Date', function () {
     assertDateParsed('1978.08.25', new Date(1978, 7, 25));
     assertDateParsed('1978.08',    new Date(1978, 7));
     assertDateParsed('1978.8',     new Date(1978, 7));
+
+    // American Style
+    assertDateParsed('4.15.16', new Date(2016, 3, 15));
 
     assertDateParsed('01-02-03', 'en-GB', new Date(2003, 1, 1));
     assertDateParsed('01/02/03', 'en-GB', new Date(2003, 1, 1));
@@ -436,6 +465,12 @@ namespace('Date', function () {
 
     // Date should not override an incorrect weekday
     assertDateParsed('Wednesday July 3rd, 2008', new Date(2008, 6, 2));
+
+    // Issue #630 Month and date with dashes
+    assertDateParsed('Mar-03', new Date(now.getFullYear(), 2, 3));
+    assertDateParsed('Mar-3', new Date(now.getFullYear(), 2, 3));
+    assertDateParsed('03-Mar', new Date(now.getFullYear(), 2, 3));
+    assertDateParsed('3-Mar', new Date(now.getFullYear(), 2, 3));
 
   });
 
@@ -579,6 +614,13 @@ namespace('Date', function () {
     // the ES6 spec does not, so disallowing this format.
     assertDateNotParsed('1998-12-31T23:59:60Z');
 
+    // Year tokens beyond 4 digits must be prefixed with - or +
+    assertDateParsed('-10000-05-05', new Date(-10000, 4, 5));
+    assertDateParsed('+10000-05-05', new Date(10000, 4, 5));
+
+    assertDateParsed('-100000-05-05', new Date(-100000, 4, 5));
+    assertDateParsed('+100000-05-05', new Date(100000, 4, 5));
+
   });
 
   group('Create | Time Formats', function() {
@@ -587,6 +629,9 @@ namespace('Date', function () {
     assertDateParsed('1:30:22pm',     new Date(now.getFullYear(), now.getMonth(), now.getDate(), 13, 30, 22));
     assertDateParsed('1:30:22.432pm', new Date(now.getFullYear(), now.getMonth(), now.getDate(), 13, 30, 22, 432));
     assertDateParsed('17:48:03.947',  new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 48, 3, 947));
+
+    // Issue #634 Partial Time
+    assertDateParsed('10:', new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10));
   });
 
   group('Create | .NET JSON', function() {
@@ -753,8 +798,23 @@ namespace('Date', function () {
     assertDateParsed('the beginning of next year', getRelativeDateReset(1));
     assertDateParsed('the beginning of last year', getRelativeDateReset(-1));
 
+    assertDateParsed('the end of the year', new Date(now.getFullYear(), 11, 31, 23, 59, 59, 999));
+    assertDateParsed('the end of this year', new Date(now.getFullYear(), 11, 31, 23, 59, 59, 999));
+
+    // TODO: why not more simple?
     assertDateParsed('the end of next year', testGetEndOfMonth(now.getFullYear() + 1, 11));
     assertDateParsed('the end of last year', testGetEndOfMonth(now.getFullYear() - 1, 11));
+
+    // Without articles
+    assertDateParsed('beginning of year', new Date(now.getFullYear(), 0, 1));
+    assertDateParsed('beginning of month', new Date(now.getFullYear(), now.getMonth(), 1));
+    assertDateParsed('beginning of week', testGetWeekday(0));
+    assertDateParsed('beginning of day', new Date(now.getFullYear(), now.getMonth(), now.getDate()));
+
+    assertDateParsed('end of year', new Date(now.getFullYear(), 11, 31, 23, 59, 59, 999));
+    assertDateParsed('end of month', testGetEndOfRelativeMonth(0));
+    assertDateParsed('end of week', testGetWeekday(6, 0, 23, 59, 59, 999));
+    assertDateParsed('end of day', new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999));
 
     assertDateParsed('the beginning of the day', getRelativeDateReset(0,0,0));
 
@@ -1060,8 +1120,7 @@ namespace('Date', function () {
     // New handling of UTC dates
 
     var date1 = testCreateUTCDate('2001-06-15');
-    var date2 = new Date(2001, 5, 15);
-    date2.setTime(date2.getTime() - (date2.getTimezoneOffset() * 60 * 1000));
+    var date2 = testSubtractTimezoneOffset(new Date(2001, 5, 15));
 
     equal(date1, date2, 'is equal to date with timezone subtracted');
     equal(testIsUTC(date1), false, 'does not set internal flag');
@@ -1074,13 +1133,16 @@ namespace('Date', function () {
     equal(dateRun(d, 'endOfMonth'), new Date(Date.UTC(2001, 5, 30, 23, 59, 59, 999)), 'the end of the month');
     equal(run(d, 'minutesSince', [testCreateUTCDate('2001-06-15')]), d.getTimezoneOffset(), 'minutesSince is equal to the timezone offset');
 
-    // In this example the date is flagged as UTC but was not parsed that way.
-    // In JST timezone this would be 2001-06-15 09:00:00. However since the UTC
-    // flag will be presumed (unless specifically overridden) when a context date
-    // is flagged as UTC, the test date will be UTC (2001-06-15 00:00:00), so the
-    // hours offset should be equal to 24 minus whatever timezone offset we're in.
+    // Hours since:
+    //
+    // 2001-06-15 00:00 (UTC)
+    // 2001-06-14 00:00 (Local)
+    //
+    // This should return 24 as the date objects are still exactly
+    // 24 hours apart. Using "setUTC" does not force the date into
+    // UTC time, simply uses it's UTC methods under the hood.
     var d = run(new Date(2001, 5, 15), 'setUTC', [true]);
-    equal(run(d, 'hoursSince', ['2001-6-14']), 24 + (d.getTimezoneOffset() / 60), 'hoursSince | preserves UTC flag');
+    equal(run(d, 'hoursSince', ['2001-6-14']), 24, 'hoursSince | preserves UTC flag');
 
     // This effect can be overridden using the fromUTC flag.
     var d = run(new Date(2001, 5, 15), 'setUTC', [true]);
@@ -1088,7 +1150,9 @@ namespace('Date', function () {
 
     // Passing just an options object without a date will still parse
     var d = run(new Date(2001, 5, 15), 'setUTC', [true]);
-    equal(run(d, 'hoursSince', [{ fromUTC: false }]), 0, 'hoursSince | needs more than just an options object');
+    var h1 = run(d, 'hoursSince', [{ fromUTC: false }]);
+    var h2 = run(d, 'hoursSince', [new Date()]);
+    equal(h1, h2, 'hoursSince | options object should be equivalent to no properties set');
 
     var d = run(testCreateDate('1 month ago'), 'setUTC', [true])
     equal(run(d, 'isLastMonth'), true, 'isLastMonth');
@@ -1282,6 +1346,53 @@ namespace('Date', function () {
 
   });
 
+  group('Create | Out of bounds', function() {
+    // TODO: Note out of bounds dates here should no longer
+    // parse after native fallback is removed.
+
+    // Issue #636 - Months
+    // Note that formats like 2/30/2018 are intentionally
+    // NOT considered out of bounds to simplify logic as well
+    // as retain parity with most browser vendors.
+    assertDateParsed('19/6/2018', new Date('19/6/2018'));
+    assertDateParsed('13/6/2018', new Date('13/6/2018'));
+    assertDateParsed('0/6/2018',  new Date('0/6/2018'));
+
+    // Years
+    assertDateParsed('1/1/10000',  new Date(10000, 0, 1));
+    assertDateParsed('1/1/100000', new Date(100000, 0, 1));
+
+    // Note that spec indicates valid dates are 8.64E15 ms on
+    // either side of the unix epoch. This translates to the
+    // year 275760, however for simplicity parsing allows any
+    // year between 4-6 digits.
+    assertDateNotParsed('1/1/1000000');
+
+    // Dates
+    assertDateParsed('1/0/2018',  new Date('1/0/2018'));
+    assertDateParsed('1/32/2018', new Date('1/32/2018'));
+    assertDateParsed('1/0/2018',  new Date('1/0/2018'));
+    assertDateParsed('1/00/2018', new Date('1/00/2018'));
+
+    // Hours
+    assertDateNotParsed('25:00');
+    assertDateNotParsed('30:00');
+    assertDateNotParsed('125:00');
+
+    // Chrome seems to (mistakenly?) parse minutes and seconds here as years.
+    // Can add this back when native fallbacks are turned off.
+
+    // Minutes
+    //assertDateNotParsed('00:60');
+    //assertDateNotParsed('00:125');
+
+    // Seconds
+    //assertDateNotParsed('00:00:60');
+    //assertDateNotParsed('00:00:125');
+    assertDateNotParsed('00:00:125.999');
+
+  });
+
 
   method('isPast', function() {
 
@@ -1343,7 +1454,6 @@ namespace('Date', function () {
   });
 
   method('get', function() {
-
     var d = new Date('August 25, 2010 11:45:20');
 
     test(d, ['next week'], new Date('September 1, 2010 11:45:20'), 'next week');
@@ -1380,6 +1490,9 @@ namespace('Date', function () {
     equal(d2, new Date(2010, 7, d1.getDate() + 1), 'fromUTC can override utc preservation');
     equal(testIsUTC(d2), false, 'setUTC can override utc preservation');
 
+    // Issue #620 - Get with preference
+    test(new Date(1833, 11, 1), ['December', { past: true }], new Date(1832, 11, 1), 'Preference option should work');
+    test(new Date(2017, 7, 14), ['Saturday', { past: true }], new Date(2017, 7, 12), 'Preference option should work');
   });
 
   method('set', function() {
@@ -1907,7 +2020,7 @@ namespace('Date', function () {
     raisesError(function(){ run(d, 'format', ['{foo}']); }, 'unknown ldml token raises error', TypeError);
 
     // Not all environments provide that so just make sure it returns the abbreviation or nothing.
-    equal(/\w{3}|^$/.test(run(d, 'format', ['{z}'])), true, 'Timezone abbreviation');
+    equal(/[-+]\d{2,4}|\w{3,5}|^$/.test(run(d, 'format', ['{z}'])), true, 'Timezone abbreviation');
 
     test(new Date('January 4, 2010'), ['{D}'], '4', 'Day of the year');
     test(new Date('January 4, 2010'), ['{DDD}'], '004', 'Day of the year padded');
@@ -2055,7 +2168,8 @@ namespace('Date', function () {
     raisesError(function(){ run(d, 'format', ['%foo']); }, 'unknown strf token raises error', TypeError);
 
     equal(/[+-]\d{4}/.test(run(d, 'format', ['%z'])), true, 'Timezone offset');
-    equal(/\w{3}/.test(run(d, 'format', ['%Z'])), true, 'Timezone abbreviation');
+    equal(/[-+]\d{2,4}|\w{3,5}|^$/.test(run(d, 'format', ['%Z'])), true, 'Timezone abbreviation');
+    equal(/[-+]\d{2,4}|\w{3,5}|^$/.test(run(d, 'format', ['{z}'])), true, 'Timezone abbreviation');
 
     test(new Date('January 1, 2010'), ['%c', 'en-GB'], 'Fri 1 Jan 2010 0:00', 'Preferred stamp | UK');
 
@@ -2442,24 +2556,26 @@ namespace('Date', function () {
     test(getRelativeDate(-5), ['7 years ago'], false, '7 years ago is not 5 years ago');
 
     test(testCreateDate('tomorrow'), ['future'], true, 'tomorrow is the future');
-    test(testCreateDate('tomorrow'), ['past'], false, 'tomorrow is the past');
+    test(testCreateDate('tomorrow'), ['past'], false, 'tomorrow is not the past');
 
-    test(new Date(), ['future'], false, 'now is the future');
-    test(new Date(), ['past', 100], false, 'now is the past');
+    // Note: not testing "now is not the past" as it can be affected by CPU lag
+    test(new Date(), ['future'], false, 'now is not the future');
 
-    test(testCreateDate('yesterday'), ['future'], false, 'yesterday is the future');
+    // test(new Date(), ['past'], false, 'now is the past');
+
+    test(testCreateDate('yesterday'), ['future'], false, 'yesterday is not the future');
     test(testCreateDate('yesterday'), ['past'], true, 'yesterday is the past');
 
     test(testCreateDate('monday'), ['weekday'], true, 'monday is a weekday');
-    test(testCreateDate('monday'), ['weekend'], false, 'monday is a weekend');
+    test(testCreateDate('monday'), ['weekend'], false, 'monday is not a weekend');
 
     test(testCreateDate('friday'), ['weekday'], true, 'friday is a weekday');
-    test(testCreateDate('friday'), ['weekend'], false, 'friday is a weekend');
+    test(testCreateDate('friday'), ['weekend'], false, 'friday is not a weekend');
 
-    test(testCreateDate('saturday'), ['weekday'], false, 'saturday is a weekday');
+    test(testCreateDate('saturday'), ['weekday'], false, 'saturday is not a weekday');
     test(testCreateDate('saturday'), ['weekend'], true, 'saturday is a weekend');
 
-    test(testCreateDate('sunday'), ['weekday'], false, 'sunday is a weekday');
+    test(testCreateDate('sunday'), ['weekday'], false, 'sunday is not a weekday');
     test(testCreateDate('sunday'), ['weekend'], true, 'sunday is a weekend');
 
     test(new Date(2001,5,4,12,22,34,445), [new Date(2001,5,4,12,22,34,445)], true, 'straight dates passed in are accurate to the millisecond');
@@ -2570,12 +2686,17 @@ namespace('Date', function () {
     equal(run(d, 'yearsSince', ['the last day of 2011']), -1, 'years since the last day of 2011');
     equal(run(d, 'yearsUntil', ['the last day of 2011']), 1, 'years until the last day of 2011');
 
+
+    var d = new Date(2010, 10);
+    var years = Math.floor((new Date() - d) / 1000 / 60 / 60 / 24 / 365.25);
+    equal(run(d, 'yearsUntil', ['Thursday']), years, 'Relative dates should not be influenced by other input');
+
     var d = new Date();
     var offset = d.getTime() - getRelativeDate(0, 0, -7).getTime();
     var since, until;
 
     // I'm occasionally seeing some REALLY big lags with IE here (up to 500ms), so giving a 1s buffer here.
-    //
+
     var msSince = run(d, 'millisecondsSince', ['last week']);
     var msUntil = run(d, 'millisecondsUntil', ['last week']);
     var actualMsSince = Math.round(offset);
@@ -2592,18 +2713,23 @@ namespace('Date', function () {
     equal((secSince <= actualSecSince + 5) && (secSince >= actualSecSince - 5), true, 'seconds since last week');
     equal((secUntil <= actualSecUntil + 5) && (secUntil >= actualSecUntil - 5), true, 'seconds until last week');
 
-    equal(run(d, 'minutesSince', ['last week']), Math.round(offset / 1000 / 60), 'minutes since last week');
-    equal(run(d, 'minutesUntil', ['last week']), Math.round(-offset / 1000 / 60), 'minutes until last week');
-    equal(run(d, 'hoursSince', ['last week']), Math.round(offset / 1000 / 60 / 60), 'hours since last week');
-    equal(run(d, 'hoursUntil', ['last week']), Math.round(-offset / 1000 / 60 / 60), 'hours until last week');
-    equal(run(d, 'daysSince', ['last week']), Math.round(offset / 1000 / 60 / 60 / 24), 'days since last week');
-    equal(run(d, 'daysUntil', ['last week']), Math.round(-offset / 1000 / 60 / 60 / 24), 'days until last week');
-    equal(run(d, 'weeksSince', ['last week']), Math.round(offset / 1000 / 60 / 60 / 24 / 7), 'weeks since last week');
-    equal(run(d, 'weeksUntil', ['last week']), Math.round(-offset / 1000 / 60 / 60 / 24 / 7), 'weeks until last week');
-    equal(run(d, 'monthsSince', ['last week']), Math.round(offset / 1000 / 60 / 60 / 24 / 30.4375), 'months since last week');
-    equal(run(d, 'monthsUntil', ['last week']), Math.round(-offset / 1000 / 60 / 60 / 24 / 30.4375), 'months until last week');
-    equal(run(d, 'yearsSince', ['last week']), Math.round(offset / 1000 / 60 / 60 / 24 / 365.25), 'years since last week');
-    equal(run(d, 'yearsUntil', ['last week']), Math.round(-offset / 1000 / 60 / 60 / 24 / 365.25), 'years until the last day of 2011');
+    function fromLastWeek(method) {
+      return run(new Date(), method, ['last week'])
+    }
+
+    equalWithMargin(fromLastWeek('minutesSince'), Math.round(offset / 1000 / 60), 1, 'minutes since last week');
+    equalWithMargin(fromLastWeek('minutesUntil'), Math.round(-offset / 1000 / 60), 1, 'minutes until last week');
+    equalWithMargin(fromLastWeek('hoursSince'),   Math.round(offset / 1000 / 60 / 60), 1, 'hours since last week');
+    equalWithMargin(fromLastWeek('hoursUntil'),   Math.round(-offset / 1000 / 60 / 60), 1, 'hours until last week');
+    equalWithMargin(fromLastWeek('daysSince'),    Math.round(offset / 1000 / 60 / 60 / 24), 1, 'days since last week');
+    equalWithMargin(fromLastWeek('daysUntil'),    Math.round(-offset / 1000 / 60 / 60 / 24), 1, 'days until last week');
+    equalWithMargin(fromLastWeek('weeksSince'),   Math.round(offset / 1000 / 60 / 60 / 24 / 7), 1, 'weeks since last week');
+    equalWithMargin(fromLastWeek('weeksUntil'),   Math.round(-offset / 1000 / 60 / 60 / 24 / 7), 1, 'weeks until last week');
+
+    equal(fromLastWeek('monthsSince'),   0, 'months since last week');
+    equal(fromLastWeek('monthsUntil'),  -0, 'months until last week');
+    equal(fromLastWeek('yearsSince'),    0, 'years since last week');
+    equal(fromLastWeek('yearsUntil'),   -0, 'years until last week');
 
     // Issue #236
     var d = getRelativeDate(0, 0, 0, 14);
@@ -3773,6 +3899,23 @@ namespace('Number', function () {
     equal(cf.hasOwnProperty('reg'), true, 'compiled format should have a reg property');
     equal(cf.hasOwnProperty('to'), true, 'compiled format should have a to property');
 
+  });
+
+  group('Specificity', function() {
+    var obj;
+
+    obj = {};
+    Sugar.Date.create('tomorrow at 8:00pm', { params: obj });
+    // TODO: make these constants
+    equal(obj.specificity, 2);
+
+    obj = {};
+    Sugar.Date.create('tomorrow at noon', { params: obj });
+    equal(obj.specificity, 3);
+
+    obj = {};
+    Sugar.Date.create('the end of february', { params: obj });
+    equal(obj.specificity, 4);
   });
 
 });

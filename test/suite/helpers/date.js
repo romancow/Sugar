@@ -51,8 +51,9 @@ getRelativeDate = function(year, month, day, hours, minutes, seconds, millisecon
 
   // Relative dates that have no more specificity than months only walk
   // the bounds of months, they can't traverse into a new month if the
-  // target month doesn't have the same number of days.
-  if(day === undefined && month !== undefined) {
+  // target month doesn't have the same number of days. Note including
+  // explicitly passed 0 for days as well.
+  if(!day && month !== undefined) {
     setDate = Math.min(setDate, testGetDaysInMonth(setYear, setMonth));
     if (setDate !== d.getDate()) {
       d.setDate(setDate);
@@ -116,6 +117,15 @@ testIsUTC = function(d) {
   return testGetPrivateProp(d, 'utc');
 }
 
+testSubtractTimezoneOffset = function(d) {
+  d.setTime(d.getTime() - d.getTimezoneOffset() * 60 * 1000);
+  return d;
+}
+
+testGetTimezoneDiff = function(d1, d2) {
+  return (d2.getTimezoneOffset() - d1.getTimezoneOffset()) * 60 * 1000;
+}
+
 testGetWeekday = function(weekday, weekOffset, hours, minutes, seconds, milliseconds) {
   var d = new Date();
   if(weekOffset) d.setDate(d.getDate() + (weekOffset * 7));
@@ -139,8 +149,8 @@ testGetEndOfRelativeMonth = function(month) {
 
 testGetWeekdayInMonth = function(month, weekday, weekOffset, hours, minutes, seconds, milliseconds) {
   var d = new Date(), offset;
-  d.setMonth(month);
   d.setDate(1);
+  d.setMonth(month);
   offset = weekday - d.getDay();
   if (offset < 0) {
     offset += 7;
@@ -204,10 +214,6 @@ testGetHours = function(num) {
   return Math.floor(num < 0 ? 24 + num : num);
 }
 
-testGetTimezoneDiff = function(d1, d2) {
-  return (d2.getTimezoneOffset() - d1.getTimezoneOffset()) * 60 * 1000;
-}
-
 getExpectedTimezoneOffset = function(d, iso) {
   // Beware of DST!
   if(run(d, 'isUTC', [])) {
@@ -253,20 +259,26 @@ testSetLocale = function(code) {
   return Sugar.Date.setLocale(code);
 }
 
-assertDateParsed = function(obj) {
-  var d, arg, msg;
-  if (arguments.length === 3) {
-    arg = arguments[1];
-    d   = arguments[2];
-  } else {
-    d = arguments[1];
+assertDateParsed = function(d) {
+  var opt, msg, expected, args = arguments;
+  switch (args.length) {
+    case 2:
+      expected = args[1];
+      break;
+    case 3:
+      opt      = args[1];
+      expected = args[2];
+      break;
+    case 4:
+      opt      = args[1];
+      expected = args[2];
+      msg      = args[3];
+      break;
   }
-  if (typeof obj === 'object' && typeof JSON !== 'undefined') {
-    msg = JSON.stringify(obj);
-  } else {
-    msg = obj;
+  if (!msg) {
+    msg = testGetStringified(d);
   }
-  equal(testCreateDate(obj, arg), d, msg);
+  equal(testCreateDate(d, opt), expected, msg);
 }
 
 assertDateNotParsed = function(str, message) {

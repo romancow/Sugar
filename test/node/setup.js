@@ -69,12 +69,12 @@ function pathIsCore(p) {
 }
 
 function expireCache() {
-  for (var path in require.cache) {
-    if(!require.cache.hasOwnProperty(path)) continue;
+  var keys = Object.keys(require.cache);
+  keys.forEach(function(path) {
     if (pathIsLocal(path) || pathIsCore(path)) {
       delete require.cache[path]
     }
-  };
+  });
 }
 
 function getTestNameFromModule(mod) {
@@ -107,6 +107,9 @@ module.exports = {
   loadLocaleTests: function() {
     var files = fs.readdirSync(path.join(__dirname, '../tests/locales/'));
     files.forEach(function(filename) {
+      if (path.extname(filename) !== '.js') {
+        return;
+      }
       load(path.join(__dirname, '../tests/locales', filename));
     });
   },
@@ -138,10 +141,6 @@ module.exports = {
     }
     Sugar = null;
     expireCache();
-  },
-
-  resetPolyfills: function(name) {
-    load('../suite/resets/' + name + '-node.js');
   },
 
   logTotals: function(exitOnError) {
