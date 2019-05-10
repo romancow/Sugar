@@ -32,7 +32,7 @@
     "test": "istanbul cover test/node --report=lcovonly",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
-  "typings": "sugar.d.ts",
+  "types": "./types",
   "devDependencies": {
     "acorn": "^2.7.0",
     "closure-compiler-stream": "^0.1.15",

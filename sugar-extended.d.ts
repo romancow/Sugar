@@ -2,7 +2,7 @@
 // Project: https://sugarjs.com/
 // Definitions by: Andrew Plummer <plummer.andrew@gmail.com>
 
-/// <reference path="sugar.d.ts" />
+/// <reference path="./types/index.d.ts" />
 
 interface ArrayConstructor {
   construct<T>(n: number, indexMapFn: (i: number) => T): T[];
