@@ -1,13 +1,13 @@
 {
-  "name": "sugar",
-  "version": "2.0.6",
+  "name": "@romancow/sugar",
+  "version": "2.0.7",
   "description": "A Javascript utility library for working with native objects.",
   "main": "dist/sugar.js",
   "homepage": "https://sugarjs.com/",
   "icon": "https://sugarjs.com/icon.svg",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/andrewplummer/Sugar.git"
+  "repository": "git://github.com/romancow/Sugar.git",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "license": "MIT",
   "author": "Andrew Plummer <plummer.andrew@gmail.com>",
