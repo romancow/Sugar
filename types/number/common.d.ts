@@ -1,10 +1,6 @@
-declare namespace sugarjs {
-	namespace Number {
+export type { DateCreateOptions } from '../date/common'
 
-		interface NumberOptions {
-			decimal: string;
-			thousands: string;
-		}
-
-	}
+export interface NumberOptions {
+	decimal: string
+	thousands: string
 }

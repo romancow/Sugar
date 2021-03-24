@@ -1,17 +1,12 @@
-declare namespace sugarjs {
-	namespace Array {
+export type mapFn<T, U> = (el: T, i: number, arr: T[]) => U
+export type sortMapFn<T, U> = (el: T) => U
+export type searchFn<T> = (el: T, i: number, arr: T[]) => boolean
 
-		type mapFn<T, U> = (el: T, i: number, arr: T[]) => U;
-		type sortMapFn<T, U> = (el: T) => U;
-		type searchFn<T> = (el: T, i: number, arr: T[]) => boolean;
-
-		interface ArrayOptions {
-			sortIgnore?: RegExp;
-			sortIgnoreCase?: boolean;
-			sortNatural?: boolean;
-			sortOrder?: string;
-			sortEquivalents?: Object;
-			sortCollate?: Function;
-		}
-	}
+export interface ArrayOptions {
+	sortIgnore?: RegExp
+	sortIgnoreCase?: boolean
+	sortNatural?: boolean
+	sortOrder?: string
+	sortEquivalents?: Object
+	sortCollate?: Function
 }
