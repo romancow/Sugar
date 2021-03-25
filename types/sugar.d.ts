@@ -1,10 +1,4 @@
-import type * as Array from './array'
-import type * as Date from './date'
-import type * as Function from './function'
-import type * as Number from './number'
-import type * as Object from './object'
-import type *  as RegExp from './regexp'
-import type * as String from './string'
+import type { Array, Date, Function, Number, Object, RegExp, String } from './namespaces'
 
 export type SugarDefaultChainable<RawValue> =
 	Array.Chainable<any, RawValue> &

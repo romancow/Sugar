@@ -1,8 +1,4 @@
-// Extended type definitions for Sugar edge
-// Project: https://sugarjs.com/
-// Definitions by: Andrew Plummer <plummer.andrew@gmail.com>
-
-/// <reference path="./types/index.d.ts" />
+import type * as sugarjs from './types/namespaces'
 
 interface ArrayConstructor {
 	construct<T>(n: number, indexMapFn: (i: number) => T): T[]
@@ -77,14 +73,14 @@ interface Array<T> {
 }
 
 interface DateConstructor {
-	addLocale(localeCode: string, def: Object): sugarjs.Locale
+	addLocale(localeCode: string, def: Object): sugarjs.Date.Locale
 	create(d?: string|number|Date, options?: sugarjs.Date.DateCreateOptions): Date
 	getAllLocaleCodes(): string[]
-	getAllLocales(): Array<sugarjs.Locale>
-	getLocale(localeCode?: string): sugarjs.Locale
+	getAllLocales(): Array<sugarjs.Date.Locale>
+	getLocale(localeCode?: string): sugarjs.Date.Locale
 	range(start?: string|Date, end?: string|Date): sugarjs.Range
-	removeLocale(localeCode: string): sugarjs.Locale
-	setLocale(localeCode: string): sugarjs.Locale
+	removeLocale(localeCode: string): sugarjs.Date.Locale
+	setLocale(localeCode: string): sugarjs.Date.Locale
 }
 
 interface Date {
@@ -171,8 +167,8 @@ interface Date {
 	monthsFromNow(): number
 	monthsSince(d: string|number|Date, options?: sugarjs.Date.DateCreateOptions): number
 	monthsUntil(d?: string|number|Date, options?: sugarjs.Date.DateCreateOptions): number
-	relative(localeCode?: string, relativeFn?: (num: number, unit: number, ms: number, loc: sugarjs.Locale) => string): string
-	relative(relativeFn?: (num: number, unit: number, ms: number, loc: sugarjs.Locale) => string): string
+	relative(localeCode?: string, relativeFn?: (num: number, unit: number, ms: number, loc: sugarjs.Date.Locale) => string): string
+	relative(relativeFn?: (num: number, unit: number, ms: number, loc: sugarjs.Date.Locale) => string): string
 	relativeTo(d: string|number|Date, localeCode?: string): string
 	reset(unit?: string, localeCode?: string): Date
 	rewind(set: string|Object, reset?: boolean): Date

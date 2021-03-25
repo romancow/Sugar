@@ -1,0 +1,8 @@
+export * as Array from './array'
+export * as Date from './date'
+export * as Function from './function'
+export * as Number from './number'
+export * as Object from './object'
+export *  as RegExp from './regexp'
+export * as String from './string'
+export { default as Range } from './range'
