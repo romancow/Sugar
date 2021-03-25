@@ -1,10 +1,5 @@
-// Type definitions for Sugar edge
-// Project: https://sugarjs.com/
-// Definitions by: Andrew Plummer <plummer.andrew@gmail.com>
+import Sugar from './sugar'
 
-declare module "sugar" {
-    const Sugar: sugarjs.Sugar;
-    export = Sugar;
-}
-  
-declare var Sugar: sugarjs.Sugar;
+declare var Sugar: Sugar
+
+export default Sugar
