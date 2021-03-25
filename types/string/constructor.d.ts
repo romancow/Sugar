@@ -1,6 +1,6 @@
 import type { SugarNamespace } from '../sugar'
 import type Chainable from './chainable'
-import type { replaceFn } from './common'
+import type { replaceFn } from './options'
 
 export default interface Constructor extends SugarNamespace {
 	(raw?: string): Chainable<string>;

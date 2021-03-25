@@ -1,6 +1,6 @@
 import type ObjectChainable from '../object/chainable'
 import type { SugarDefaultChainable } from '../sugar'
-import type { DateCreateOptions } from './common'
+import type { DateCreateOptions } from './options'
 
 type Chainable<RawValue> = ChainableBase<RawValue> & ObjectChainable<RawValue>
 

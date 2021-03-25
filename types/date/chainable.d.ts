@@ -1,5 +1,5 @@
 import type ObjectChainable from '../object/chainable'
-import type { Locale, DateCreateOptions } from './common'
+import type { Locale, DateCreateOptions } from './options'
 import type { SugarDefaultChainable } from '../sugar'
 
 type Chainable<RawValue> = ChainableBase<RawValue> & ObjectChainable<RawValue>

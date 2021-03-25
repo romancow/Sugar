@@ -1,4 +1,4 @@
-import type { searchFn, mapFn, QueryStringOptions, ObjectMergeOptions } from './common'
+import type { searchFn, mapFn, QueryStringOptions, ObjectMergeOptions } from './options'
 import type { SugarDefaultChainable } from '../sugar'
 
 export default interface Chainable<RawValue> {

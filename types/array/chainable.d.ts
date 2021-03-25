@@ -1,5 +1,5 @@
 import type ObjectChainable from '../object/chainable'
-import type { mapFn, searchFn, sortMapFn } from './common'
+import type { mapFn, searchFn, sortMapFn } from './options'
 import type { SugarDefaultChainable } from '../sugar'
 
 export interface ChainableBase<T, RawValue> {

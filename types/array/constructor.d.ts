@@ -1,6 +1,6 @@
 import type { SugarNamespace } from '../sugar'
 import type Chainable from './chainable'
-import type { mapFn, searchFn, sortMapFn, ArrayOptions } from './common'
+import type { mapFn, searchFn, sortMapFn, ArrayOptions } from './options'
 
 export default interface Constructor extends SugarNamespace {
 	<T>(obj?: number|ArrayLike<T>, clone?: boolean): Chainable<T, T[]>
