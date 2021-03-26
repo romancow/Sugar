@@ -1,0 +1,7 @@
+import './array'
+import './date'
+import './function'
+import './number'
+import './object'
+import './regexp'
+import './string'
