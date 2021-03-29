@@ -3,8 +3,8 @@ import type Chainable from './chainable'
 import type { MapFn, SearchFn, SortMapFn, Options } from './options'
 
 export default interface Constructor extends SugarNamespace {
-	<T>(obj?: number|ArrayLike<T>, clone?: boolean): Chainable<T, T[]>
-	new<T>(obj?: number|ArrayLike<T>, clone?: boolean): Chainable<T, T[]>
+	<T>(obj?: number | ArrayLike<T>, clone?: boolean): Chainable<T>
+	new<T>(obj?: number|ArrayLike<T>, clone?: boolean): Chainable<T>
 	construct<T>(n: number, indexMapFn: (i: number) => T): T[]
 	create<T>(obj?: number|ArrayLike<T>, clone?: boolean): T[]
 	add<T>(instance: T[], item: T|T[], index?: number): T[]

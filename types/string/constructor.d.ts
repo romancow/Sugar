@@ -3,8 +3,8 @@ import type Chainable from './chainable'
 import type { ReplaceFn } from './options'
 
 export default interface Constructor extends SugarNamespace {
-	(raw?: string): Chainable<string>;
-	new(raw?: string): Chainable<string>;
+	(raw?: string): Chainable
+	new(raw?: string): Chainable
 	range(start?: string, end?: string): Range;
 	at<T>(instance: string, index: number|Array<number>, loop?: boolean): T;
 	camelize(instance: string, upper?: boolean): string;

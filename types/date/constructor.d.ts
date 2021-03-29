@@ -3,8 +3,8 @@ import type Chainable from './chainable'
 import type { Locale, Options, CreateOptions } from './options'
 
 export default interface Constructor extends SugarNamespace {
-	(d?: string|number|Date, options?: CreateOptions): Chainable<Date>
-	new(d?: string|number|Date, options?: CreateOptions): Chainable<Date>
+	(d?: string|number|Date, options?: CreateOptions): Chainable
+	new(d?: string|number|Date, options?: CreateOptions): Chainable
 	addLocale(localeCode: string, def: Object): Locale
 	create(d?: string|number|Date, options?: CreateOptions): Date
 	getAllLocaleCodes(): string[]

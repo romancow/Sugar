@@ -2,8 +2,8 @@ import type { SugarNamespace } from '../sugar'
 import type Chainable from './chainable'
 
 export default interface Constructor extends SugarNamespace {
-	(raw?: Function): Chainable<Function>
-	new(raw?: Function): Chainable<Function>
+	(raw?: Function): Chainable
+	new(raw?: Function): Chainable
 	after(instance: Function, n: number): Function
 	cancel(instance: Function): Function
 	debounce(instance: Function, ms?: number): Function

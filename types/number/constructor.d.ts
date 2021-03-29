@@ -3,8 +3,8 @@ import type Chainable from './chainable'
 import type { Options, DateCreateOptions } from './options'
 
 export default interface Constructor extends SugarNamespace {
-	(raw?: number): Chainable<number>
-	new(raw?: number): Chainable<number>
+	(raw?: number): Chainable
+	new(raw?: number): Chainable
 	random(n1?: number, n2?: number): number
 	range(start?: number, end?: number): Range
 	abbr(instance: number, precision?: number): string
