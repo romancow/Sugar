@@ -1,11 +1,8 @@
-import type ObjectChainable from '../object/chainable'
+import type { ChainableWith } from '../object/chainable'
 import type { mapFn, searchFn, sortMapFn } from './options'
 import type { SugarDefaultChainable } from '../sugar'
 
-export interface ChainableBase<T, RawValue> {
-	raw: RawValue
-	valueOf: () => RawValue
-	toString: () => string
+type Chainable<T, Raw extends readonly T[] = T[]> = ChainableWith<Raw, {
 	add(item: T|T[], index?: number): SugarDefaultChainable<T[]>
 	append(item: T|T[], index?: number): SugarDefaultChainable<T[]>
 	at(index: number|number[], loop?: boolean): SugarDefaultChainable<T>
@@ -72,9 +69,9 @@ export interface ChainableBase<T, RawValue> {
 	zip(...args: any[]): SugarDefaultChainable<T[]>
 	concat(...items: (T | T[])[]): SugarDefaultChainable<T[]>
 	concat(...items: T[][]): SugarDefaultChainable<T[]>
-	copyWithin(target: number, start: number, end?: number): SugarDefaultChainable<this>
+	copyWithin(target: number, start: number, end?: number): SugarDefaultChainable<T[]>
 	every(callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): SugarDefaultChainable<boolean>
-	fill(value: T, start?: number, end?: number): SugarDefaultChainable<this>
+	fill(value: T, start?: number, end?: number): SugarDefaultChainable<T[]>
 	filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): SugarDefaultChainable<T[]>
 	find(predicate: (value: T, index: number, obj: Array<T>) => boolean, thisArg?: any): SugarDefaultChainable<T | undefined>
 	findIndex(predicate: (value: T, index: number, obj: Array<T>) => boolean, thisArg?: any): SugarDefaultChainable<number>
@@ -93,13 +90,9 @@ export interface ChainableBase<T, RawValue> {
 	shift(): SugarDefaultChainable<T | undefined>
 	slice(start?: number, end?: number): SugarDefaultChainable<T[]>
 	some(callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): SugarDefaultChainable<boolean>
-	sort(compareFn?: (a: T, b: T) => number): SugarDefaultChainable<this>
+	sort(compareFn?: (a: T, b: T) => number): SugarDefaultChainable<T[]>
 	splice(start: number): SugarDefaultChainable<T[]>
 	splice(start: number, deleteCount: number, ...items: T[]): SugarDefaultChainable<T[]>
-	toLocaleString(): SugarDefaultChainable<string>
 	unshift(...items: T[]): SugarDefaultChainable<number>
-}
-
-type Chainable<T, RawValue> = ChainableBase<T, RawValue> & ObjectChainable<RawValue>
-
+}>
 export default Chainable

@@ -1,14 +1,7 @@
-import type ObjectChainable from '../object/chainable'
+import type { ChainableWith } from '../object/chainable'
 import type { SugarDefaultChainable } from '../sugar'
 
-type Chainable<RawValue> = ChainableBase<RawValue> & ObjectChainable<RawValue>;
-
-export default Chainable
-
-export interface ChainableBase<RawValue> {
-	raw: RawValue
-	valueOf: () => RawValue
-	toString: () => string
+type Chainable<Raw extends Function = Function> = ChainableWith<Raw, {
 	after(n: number): SugarDefaultChainable<Function>
 	cancel(): SugarDefaultChainable<Function>
 	debounce(ms?: number): SugarDefaultChainable<Function>
@@ -23,4 +16,5 @@ export interface ChainableBase<RawValue> {
 	apply(thisArg: any, argArray?: any): SugarDefaultChainable<any>
 	bind(thisArg: any, ...argArray: any[]): SugarDefaultChainable<any>
 	call(thisArg: any, ...argArray: any[]): SugarDefaultChainable<any>
-}
+}>
+export default Chainable

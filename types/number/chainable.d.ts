@@ -1,15 +1,8 @@
-import type ObjectChainable from '../object/chainable'
+import type { ChainableWith } from '../object/chainable'
 import type { SugarDefaultChainable } from '../sugar'
 import type { DateCreateOptions } from './options'
 
-type Chainable<RawValue> = ChainableBase<RawValue> & ObjectChainable<RawValue>
-
-export default Chainable
-
-export interface ChainableBase<RawValue> {
-	raw: RawValue
-	valueOf: () => RawValue
-	toString: () => string
+type Chainable<Raw extends Number = Number> = ChainableWith<Raw, {
 	abbr(precision?: number): SugarDefaultChainable<string>
 	abs(): SugarDefaultChainable<number>
 	acos(): SugarDefaultChainable<number>
@@ -129,4 +122,5 @@ export interface ChainableBase<RawValue> {
 	toFixed(fractionDigits?: number): SugarDefaultChainable<string>
 	toLocaleString(locales?: string | string[], options?: Intl.NumberFormatOptions): SugarDefaultChainable<string>
 	toPrecision(precision?: number): SugarDefaultChainable<string>
-}
+}>
+export default Chainable

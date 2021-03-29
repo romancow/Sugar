@@ -1,10 +1,14 @@
 import type { searchFn, mapFn, QueryStringOptions, ObjectMergeOptions } from './options'
 import type { SugarDefaultChainable } from '../sugar'
 
-export default interface Chainable<RawValue> {
-	raw: RawValue
-	valueOf: () => RawValue
+export type ChainableWith<Raw, T> = T & Omit<Chainable<Raw>, keyof T>
+
+export default interface Chainable<Raw extends Object> {
+	raw: Raw
+	valueOf: () => Raw
 	toString: () => string
+	toLocaleString(): SugarDefaultChainable<string>
+
 	add<T>(obj: Object, options?: ObjectMergeOptions<T>): SugarDefaultChainable<Object>
 	addAll<T>(sources: Array<Object>, options?: ObjectMergeOptions<T>): SugarDefaultChainable<Object>
 	average<T, U>(map?: string|mapFn<T, U>): SugarDefaultChainable<number>

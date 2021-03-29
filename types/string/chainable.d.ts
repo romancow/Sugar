@@ -1,15 +1,8 @@
-import type ObjectChainable from '../object/chainable'
+import type { ChainableWith } from '../object/chainable'
 import type { replaceFn } from './options'
 import type { SugarDefaultChainable } from '../sugar'
 
-type Chainable<RawValue> = ChainableBase<RawValue> & ObjectChainable<RawValue>
-
-export default Chainable
-
-export interface ChainableBase<RawValue> {
-	raw: RawValue
-	valueOf: () => RawValue
-	toString: () => string
+type Chainable<Raw extends string = string> = ChainableWith<Raw, {
 	at<T>(index: number|Array<number>, loop?: boolean): SugarDefaultChainable<T>
 	camelize(upper?: boolean): SugarDefaultChainable<string>
 	capitalize(lower?: boolean, all?: boolean): SugarDefaultChainable<string>
@@ -100,4 +93,5 @@ export interface ChainableBase<RawValue> {
 	toLowerCase(): SugarDefaultChainable<string>
 	toUpperCase(): SugarDefaultChainable<string>
 	trim(): SugarDefaultChainable<string>
-}
+}>
+export default Chainable

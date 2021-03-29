@@ -1,15 +1,8 @@
-import type ObjectChainable from '../object/chainable'
+import type { ChainableWith } from '../object/chainable'
 import type { Locale, DateCreateOptions } from './options'
 import type { SugarDefaultChainable } from '../sugar'
 
-type Chainable<RawValue> = ChainableBase<RawValue> & ObjectChainable<RawValue>
-
-export default Chainable
-
-export interface ChainableBase<RawValue> {
-	raw: RawValue
-	valueOf: () => RawValue
-	toString: () => string
+type Chainable<Raw extends Date = Date> = ChainableWith<Raw, {
 	addDays(n: number, reset?: boolean): SugarDefaultChainable<Date>
 	addHours(n: number, reset?: boolean): SugarDefaultChainable<Date>
 	addMilliseconds(n: number, reset?: boolean): SugarDefaultChainable<Date>
@@ -157,10 +150,10 @@ export interface ChainableBase<RawValue> {
 	toJSON(key?: any): SugarDefaultChainable<string>
 	toLocaleDateString(locales?: string | string[], options?: Intl.DateTimeFormatOptions): SugarDefaultChainable<string>
 	toLocaleDateString(): SugarDefaultChainable<string>
-	toLocaleString(): SugarDefaultChainable<string>
 	toLocaleString(locales?: string | string[], options?: Intl.DateTimeFormatOptions): SugarDefaultChainable<string>
 	toLocaleTimeString(): SugarDefaultChainable<string>
 	toLocaleTimeString(locales?: string | string[], options?: Intl.DateTimeFormatOptions): SugarDefaultChainable<string>
 	toTimeString(): SugarDefaultChainable<string>
 	toUTCString(): SugarDefaultChainable<string>
-}
+}>
+export default Chainable
