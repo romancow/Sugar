@@ -1,15 +1,16 @@
-import type * as sugarjs from '../namespaces'
+import type { Locale, CreateOptions } from '../Date/options'
+import Range from '../range'
 
 declare global {
 	interface DateConstructor {
-		addLocale(localeCode: string, def: Object): sugarjs.Date.Locale
-		create(d?: string|number|Date, options?: sugarjs.Date.CreateOptions): Date
+		addLocale(localeCode: string, def: Object): Locale
+		create(d?: string|number|Date, options?: CreateOptions): Date
 		getAllLocaleCodes(): string[]
-		getAllLocales(): Array<sugarjs.Date.Locale>
-		getLocale(localeCode?: string): sugarjs.Date.Locale
-		range(start?: string|Date, end?: string|Date): sugarjs.Range
-		removeLocale(localeCode: string): sugarjs.Date.Locale
-		setLocale(localeCode: string): sugarjs.Date.Locale
+		getAllLocales(): Array<Locale>
+		getLocale(localeCode?: string): Locale
+		range(start?: string|Date, end?: string|Date): Range
+		removeLocale(localeCode: string): Locale
+		setLocale(localeCode: string): Locale
 	}
 
 	interface Date {
@@ -33,8 +34,8 @@ declare global {
 		daysAgo(): number
 		daysFromNow(): number
 		daysInMonth(): number
-		daysSince(d: string|number|Date, options?: sugarjs.Date.CreateOptions): number
-		daysUntil(d?: string|number|Date, options?: sugarjs.Date.CreateOptions): number
+		daysSince(d: string|number|Date, options?: CreateOptions): number
+		daysUntil(d?: string|number|Date, options?: CreateOptions): number
 		endOfDay(localeCode?: string): Date
 		endOfISOWeek(): Date
 		endOfMonth(localeCode?: string): Date
@@ -42,15 +43,15 @@ declare global {
 		endOfYear(localeCode?: string): Date
 		format(f?: string, localeCode?: string): string
 		full(localeCode?: string): string
-		get(d: string|number|Date, options?: sugarjs.Date.CreateOptions): Date
+		get(d: string|number|Date, options?: CreateOptions): Date
 		getISOWeek(): number
 		getUTCOffset(iso?: boolean): string
 		getUTCWeekday(): number
 		getWeekday(): number
 		hoursAgo(): number
 		hoursFromNow(): number
-		hoursSince(d: string|number|Date, options?: sugarjs.Date.CreateOptions): number
-		hoursUntil(d?: string|number|Date, options?: sugarjs.Date.CreateOptions): number
+		hoursSince(d: string|number|Date, options?: CreateOptions): number
+		hoursUntil(d?: string|number|Date, options?: CreateOptions): number
 		is(d: string|number|Date, margin?: number): boolean
 		isAfter(d: string|number|Date, margin?: number): boolean
 		isBefore(d: string|number|Date, margin?: number): boolean
@@ -86,18 +87,18 @@ declare global {
 		medium(localeCode?: string): string
 		millisecondsAgo(): number
 		millisecondsFromNow(): number
-		millisecondsSince(d: string|number|Date, options?: sugarjs.Date.CreateOptions): number
-		millisecondsUntil(d?: string|number|Date, options?: sugarjs.Date.CreateOptions): number
+		millisecondsSince(d: string|number|Date, options?: CreateOptions): number
+		millisecondsUntil(d?: string|number|Date, options?: CreateOptions): number
 		minutesAgo(): number
 		minutesFromNow(): number
-		minutesSince(d: string|number|Date, options?: sugarjs.Date.CreateOptions): number
-		minutesUntil(d?: string|number|Date, options?: sugarjs.Date.CreateOptions): number
+		minutesSince(d: string|number|Date, options?: CreateOptions): number
+		minutesUntil(d?: string|number|Date, options?: CreateOptions): number
 		monthsAgo(): number
 		monthsFromNow(): number
-		monthsSince(d: string|number|Date, options?: sugarjs.Date.CreateOptions): number
-		monthsUntil(d?: string|number|Date, options?: sugarjs.Date.CreateOptions): number
-		relative(localeCode?: string, relativeFn?: (num: number, unit: number, ms: number, loc: sugarjs.Date.Locale) => string): string
-		relative(relativeFn?: (num: number, unit: number, ms: number, loc: sugarjs.Date.Locale) => string): string
+		monthsSince(d: string|number|Date, options?: CreateOptions): number
+		monthsUntil(d?: string|number|Date, options?: CreateOptions): number
+		relative(localeCode?: string, relativeFn?: (num: number, unit: number, ms: number, loc: Locale) => string): string
+		relative(relativeFn?: (num: number, unit: number, ms: number, loc: Locale) => string): string
 		relativeTo(d: string|number|Date, localeCode?: string): string
 		reset(unit?: string, localeCode?: string): Date
 		rewind(set: string|Object, reset?: boolean): Date
@@ -105,8 +106,8 @@ declare global {
 		rewind(year: number, month: number, day?: number, hour?: number, minute?: number, second?: number, millliseconds?: undefined): Date
 		secondsAgo(): number
 		secondsFromNow(): number
-		secondsSince(d: string|number|Date, options?: sugarjs.Date.CreateOptions): number
-		secondsUntil(d?: string|number|Date, options?: sugarjs.Date.CreateOptions): number
+		secondsSince(d: string|number|Date, options?: CreateOptions): number
+		secondsUntil(d?: string|number|Date, options?: CreateOptions): number
 		set(set: Object, reset?: boolean): Date
 		set(milliseconds: number): Date
 		set(year: number, month: number, day?: number, hour?: number, minute?: number, second?: number, millliseconds?: undefined): Date
@@ -116,11 +117,11 @@ declare global {
 		short(localeCode?: string): string
 		weeksAgo(): number
 		weeksFromNow(): number
-		weeksSince(d: string|number|Date, options?: sugarjs.Date.CreateOptions): number
-		weeksUntil(d?: string|number|Date, options?: sugarjs.Date.CreateOptions): number
+		weeksSince(d: string|number|Date, options?: CreateOptions): number
+		weeksUntil(d?: string|number|Date, options?: CreateOptions): number
 		yearsAgo(): number
 		yearsFromNow(): number
-		yearsSince(d: string|number|Date, options?: sugarjs.Date.CreateOptions): number
-		yearsUntil(d?: string|number|Date, options?: sugarjs.Date.CreateOptions): number
+		yearsSince(d: string|number|Date, options?: CreateOptions): number
+		yearsUntil(d?: string|number|Date, options?: CreateOptions): number
 	}
 }

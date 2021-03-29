@@ -1,8 +1,9 @@
-import type * as sugarjs from '../namespaces'
+import type { ReplaceFn } from '../string/options'
+import type Range from '../range'
 
 declare global {
 	interface StringConstructor {
-		range(start?: string, end?: string): sugarjs.Range
+		range(start?: string, end?: string): Range
 	}
 
 	interface String {
@@ -33,12 +34,12 @@ declare global {
 		parameterize(): string
 		remove(f: string|RegExp): string
 		removeAll(f: string|RegExp): string
-		removeTags(tag?: string, replace?: string|sugarjs.String.ReplaceFn): string
+		removeTags(tag?: string, replace?: string|ReplaceFn): string
 		replaceAll(f: string|RegExp, ...args: any[]): string
 		reverse(): string
 		shift<T>(n: number): T[]
 		spacify(): string
-		stripTags(tag?: string, replace?: string|sugarjs.String.ReplaceFn): string
+		stripTags(tag?: string, replace?: string|ReplaceFn): string
 		titleize(): string
 		to(index?: number): string
 		toNumber(base?: number): number
