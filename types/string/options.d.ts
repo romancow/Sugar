@@ -1,1 +1,1 @@
-export type replaceFn = (tag: string, inner: string, attr: string, outer: string) => string
+export type ReplaceFn = (tag: string, inner: string, attr: string, outer: string) => string

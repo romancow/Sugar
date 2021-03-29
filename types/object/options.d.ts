@@ -1,6 +1,6 @@
-export type resolveFn<T> = (key: string, targetVal: T, sourceVal: T, target: Object, source: Object) => boolean
-export type searchFn<T> = (key: string, val: T, obj: Object) => boolean
-export type mapFn<T, U> = (val: T, key: string, obj: Object) => U
+export type ResolveFn<T> = (key: string, targetVal: T, sourceVal: T, target: Object, source: Object) => boolean
+export type SearchFn<T> = (key: string, val: T, obj: Object) => boolean
+export type MapFn<T, U> = (val: T, key: string, obj: Object) => U
 
 export interface QueryStringParseOptions<T, U> {
 	deep?: boolean
@@ -16,9 +16,9 @@ export interface QueryStringOptions<T, U> {
 	separator?: string
 }
 
-export interface ObjectMergeOptions<T> {
+export interface MergeOptions<T> {
 	deep?: boolean
 	hidden?: boolean
 	descriptor?: boolean
-	resolve?: boolean|resolveFn<T>
+	resolve?: boolean | ResolveFn<T>
 }

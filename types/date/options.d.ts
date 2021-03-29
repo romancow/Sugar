@@ -6,11 +6,11 @@ export interface Locale {
 	getMonthName(n: number): string
 	getWeekdayName(n: number): string
 }
-export interface DateOptions {
+export interface Options {
 	newDateInternal: Function
 }
 
-export interface DateCreateOptions {
+export interface CreateOptions {
 	locale?: string
 	past?: boolean
 	future?: boolean

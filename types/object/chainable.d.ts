@@ -1,4 +1,4 @@
-import type { searchFn, mapFn, QueryStringOptions, ObjectMergeOptions } from './options'
+import type { SearchFn, MapFn, QueryStringOptions, MergeOptions } from './options'
 import type { UnknownChainable, String, Number, Array } from '../namespaces'
 
 export type ChainableWith<Raw, T> = T & Omit<Chainable<Raw>, keyof T>
@@ -9,16 +9,16 @@ export default interface Chainable<Raw extends Object> {
 	toString: () => string
 	toLocaleString(): String.Chainable
 
-	add<T>(obj: Object, options?: ObjectMergeOptions<T>): Chainable<Object>
-	addAll<T>(sources: Array<Object>, options?: ObjectMergeOptions<T>): Chainable<Object>
-	average<T, U>(map?: string|mapFn<T, U>): Number.Chainable
+	add<T>(obj: Object, options?: MergeOptions<T>): Chainable<Object>
+	addAll<T>(sources: Array<Object>, options?: MergeOptions<T>): Chainable<Object>
+	average<T, U>(map?: string|MapFn<T, U>): Number.Chainable
 	clone(deep?: boolean): Chainable<Raw>
-	count<T>(search: T|searchFn<T>): Number.Chainable
-	defaults<T>(sources: Array<Object>, options?: ObjectMergeOptions<T>): Chainable<Object>
-	every<T>(search: T|searchFn<T>): Chainable<boolean>
-	exclude<T>(search: T|searchFn<T>): Chainable<Object>
-	filter<T>(search: T|searchFn<T>): Chainable<Object>
-	find<T>(search: T|searchFn<T>): String.Chainable
+	count<T>(search: T|SearchFn<T>): Number.Chainable
+	defaults<T>(sources: Array<Object>, options?: MergeOptions<T>): Chainable<Object>
+	every<T>(search: T|SearchFn<T>): Chainable<boolean>
+	exclude<T>(search: T|SearchFn<T>): Chainable<Object>
+	filter<T>(search: T|SearchFn<T>): Chainable<Object>
+	find<T>(search: T|SearchFn<T>): String.Chainable
 	forEach<T>(eachFn: (val: T, key: string, obj: Object) => void): Chainable<Raw>
 	get<K extends keyof Raw>(key: K, inherited?: boolean): UnknownChainable<Raw[K]>
 	has(key: string, inherited?: boolean): Chainable<boolean>
@@ -39,28 +39,28 @@ export default interface Chainable<Raw extends Object> {
 	isSet(): Chainable<boolean>
 	isString(): Chainable<boolean>
 	keys(): Array.Chainable<keyof Raw>
-	least<T, U>(all?: boolean, map?: string|mapFn<T, U>): UnknownChainable<keyof Raw> | Chainable<Object>
-	least<T, U>(map?: string|mapFn<T, U>): UnknownChainable<keyof Raw>
-	map<T, U>(map: string|mapFn<T, U>): Chainable<Object>
-	max<T, U>(all?: boolean, map?: string|mapFn<T, U>): UnknownChainable<keyof Raw> | Chainable<Object>
-	max<T, U>(map?: string|mapFn<T, U>): UnknownChainable<keyof Raw>
-	median<T, U>(map?: string|mapFn<T, U>): Number.Chainable
-	merge<T>(source: Object, options?: ObjectMergeOptions<T>): Chainable<Object>
-	mergeAll<T>(sources: Array<Object>, options?: ObjectMergeOptions<T>): Chainable<Object>
-	min<T, U>(all?: boolean, map?: string|mapFn<T, U>): UnknownChainable<keyof Raw> | Chainable<Object>
-	min<T, U>(map?: string|mapFn<T, U>): UnknownChainable<keyof Raw>
-	most<T, U>(all?: boolean, map?: string|mapFn<T, U>): UnknownChainable<keyof Raw> | Chainable<Object>
-	most<T, U>(map?: string|mapFn<T, U>): UnknownChainable<keyof Raw>
-	none<T>(search: T|searchFn<T>): Chainable<boolean>
+	least<T, U>(all?: boolean, map?: string|MapFn<T, U>): UnknownChainable<keyof Raw> | Chainable<Object>
+	least<T, U>(map?: string|MapFn<T, U>): UnknownChainable<keyof Raw>
+	map<T, U>(map: string|MapFn<T, U>): Chainable<Object>
+	max<T, U>(all?: boolean, map?: string|MapFn<T, U>): UnknownChainable<keyof Raw> | Chainable<Object>
+	max<T, U>(map?: string|MapFn<T, U>): UnknownChainable<keyof Raw>
+	median<T, U>(map?: string|MapFn<T, U>): Number.Chainable
+	merge<T>(source: Object, options?: MergeOptions<T>): Chainable<Object>
+	mergeAll<T>(sources: Array<Object>, options?: MergeOptions<T>): Chainable<Object>
+	min<T, U>(all?: boolean, map?: string|MapFn<T, U>): UnknownChainable<keyof Raw> | Chainable<Object>
+	min<T, U>(map?: string|MapFn<T, U>): UnknownChainable<keyof Raw>
+	most<T, U>(all?: boolean, map?: string|MapFn<T, U>): UnknownChainable<keyof Raw> | Chainable<Object>
+	most<T, U>(map?: string|MapFn<T, U>): UnknownChainable<keyof Raw>
+	none<T>(search: T|SearchFn<T>): Chainable<boolean>
 	reduce<T>(reduceFn: <K extends keyof Raw>(acc: T, val: Raw[K], key: K, obj: Raw) => T, init?: any): UnknownChainable<T>
 	reject(find: string|RegExp|Array<string>|Object): Chainable<Object>
-	remove<T>(search: T|searchFn<T>): Chainable<Object>
+	remove<T>(search: T|SearchFn<T>): Chainable<Object>
 	select(find: string|RegExp|Array<string>|Object): Chainable<Object>
 	set<T>(key: string, val: T): Chainable<Object>
 	size(): Number.Chainable
-	some<T>(search: T|searchFn<T>): Chainable<boolean>
+	some<T>(search: T|SearchFn<T>): Chainable<boolean>
 	subtract(obj: Object): Chainable<Object>
-	sum<T, U>(map?: string|mapFn<T, U>): Number.Chainable
+	sum<T, U>(map?: string|MapFn<T, U>): Number.Chainable
 	tap(tapFn: (obj: Raw) => void): Chainable<Raw>
 	toQueryString<T, U>(options?: QueryStringOptions<T, U>): String.Chainable
 	values(): Array.Chainable<Raw[keyof Raw]>

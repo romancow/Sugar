@@ -1,6 +1,6 @@
-export type { DateCreateOptions } from '../date/options'
+export type { CreateOptions as DateCreateOptions } from '../date/options'
 
-export interface NumberOptions {
+export interface Options {
 	decimal: string
 	thousands: string
 }

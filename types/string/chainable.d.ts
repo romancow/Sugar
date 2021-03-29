@@ -1,5 +1,5 @@
 import type { ChainableWith } from '../object/chainable'
-import type { replaceFn } from './options'
+import type { ReplaceFn } from './options'
 import type { Array, Object, Number } from '../namespaces'
 
 type Chainable<Raw extends string = string> = ChainableWith<Raw, {
@@ -30,12 +30,12 @@ type Chainable<Raw extends string = string> = ChainableWith<Raw, {
 	parameterize(): Chainable
 	remove(f: string|RegExp): Chainable
 	removeAll(f: string|RegExp): Chainable
-	removeTags(tag?: string, replace?: string|replaceFn): Chainable
+	removeTags(tag?: string, replace?: string|ReplaceFn): Chainable
 	replaceAll(f: string|RegExp, ...args: any[]): Chainable
 	reverse(): Chainable
 	shift(n: number): Chainable
 	spacify(): Chainable
-	stripTags(tag?: string, replace?: string|replaceFn): Chainable
+	stripTags(tag?: string, replace?: string|ReplaceFn): Chainable
 	titleize(): Chainable
 	to(index?: number): Chainable
 	toNumber(base?: number): Number.Chainable

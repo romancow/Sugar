@@ -1,5 +1,5 @@
 import type { ChainableWith } from '../object/chainable'
-import type { Locale, DateCreateOptions } from './options'
+import type { Locale, CreateOptions } from './options'
 import type { Number, String, Object } from '../namespaces'
 
 type Chainable<Raw extends Date = Date> = ChainableWith<Raw, {
@@ -23,8 +23,8 @@ type Chainable<Raw extends Date = Date> = ChainableWith<Raw, {
 	daysAgo(): Number.Chainable
 	daysFromNow(): Number.Chainable
 	daysInMonth(): Number.Chainable
-	daysSince(d: string|number|Date, options?: DateCreateOptions): Number.Chainable
-	daysUntil(d?: string|number|Date, options?: DateCreateOptions): Number.Chainable
+	daysSince(d: string|number|Date, options?: CreateOptions): Number.Chainable
+	daysUntil(d?: string|number|Date, options?: CreateOptions): Number.Chainable
 	endOfDay(localeCode?: string): Chainable
 	endOfISOWeek(): Chainable
 	endOfMonth(localeCode?: string): Chainable
@@ -32,15 +32,15 @@ type Chainable<Raw extends Date = Date> = ChainableWith<Raw, {
 	endOfYear(localeCode?: string): Chainable
 	format(f?: string, localeCode?: string): String.Chainable
 	full(localeCode?: string): String.Chainable
-	get(d: string|number|Date, options?: DateCreateOptions): Chainable
+	get(d: string|number|Date, options?: CreateOptions): Chainable
 	getISOWeek(): Number.Chainable
 	getUTCOffset(iso?: boolean): String.Chainable
 	getUTCWeekday(): Number.Chainable
 	getWeekday(): Number.Chainable
 	hoursAgo(): Number.Chainable
 	hoursFromNow(): Number.Chainable
-	hoursSince(d: string|number|Date, options?: DateCreateOptions): Number.Chainable
-	hoursUntil(d?: string|number|Date, options?: DateCreateOptions): Number.Chainable
+	hoursSince(d: string|number|Date, options?: CreateOptions): Number.Chainable
+	hoursUntil(d?: string|number|Date, options?: CreateOptions): Number.Chainable
 	is(d: string|number|Date, margin?: number): Object.Chainable<boolean>
 	isAfter(d: string|number|Date, margin?: number): Object.Chainable<boolean>
 	isBefore(d: string|number|Date, margin?: number): Object.Chainable<boolean>
@@ -76,16 +76,16 @@ type Chainable<Raw extends Date = Date> = ChainableWith<Raw, {
 	medium(localeCode?: string): String.Chainable
 	millisecondsAgo(): Number.Chainable
 	millisecondsFromNow(): Number.Chainable
-	millisecondsSince(d: string|number|Date, options?: DateCreateOptions): Number.Chainable
-	millisecondsUntil(d?: string|number|Date, options?: DateCreateOptions): Number.Chainable
+	millisecondsSince(d: string|number|Date, options?: CreateOptions): Number.Chainable
+	millisecondsUntil(d?: string|number|Date, options?: CreateOptions): Number.Chainable
 	minutesAgo(): Number.Chainable
 	minutesFromNow(): Number.Chainable
-	minutesSince(d: string|number|Date, options?: DateCreateOptions): Number.Chainable
-	minutesUntil(d?: string|number|Date, options?: DateCreateOptions): Number.Chainable
+	minutesSince(d: string|number|Date, options?: CreateOptions): Number.Chainable
+	minutesUntil(d?: string|number|Date, options?: CreateOptions): Number.Chainable
 	monthsAgo(): Number.Chainable
 	monthsFromNow(): Number.Chainable
-	monthsSince(d: string|number|Date, options?: DateCreateOptions): Number.Chainable
-	monthsUntil(d?: string|number|Date, options?: DateCreateOptions): Number.Chainable
+	monthsSince(d: string|number|Date, options?: CreateOptions): Number.Chainable
+	monthsUntil(d?: string|number|Date, options?: CreateOptions): Number.Chainable
 	relative(localeCode?: string, relativeFn?: (num: number, unit: number, ms: number, loc: Locale) => string): String.Chainable
 	relative(relativeFn?: (num: number, unit: number, ms: number, loc: Locale) => string): String.Chainable
 	relativeTo(d: string|number|Date, localeCode?: string): String.Chainable
@@ -95,8 +95,8 @@ type Chainable<Raw extends Date = Date> = ChainableWith<Raw, {
 	rewind(year: number, month: number, day?: number, hour?: number, minute?: number, second?: number, millliseconds?: undefined): Chainable
 	secondsAgo(): Number.Chainable
 	secondsFromNow(): Number.Chainable
-	secondsSince(d: string|number|Date, options?: DateCreateOptions): Number.Chainable
-	secondsUntil(d?: string|number|Date, options?: DateCreateOptions): Number.Chainable
+	secondsSince(d: string|number|Date, options?: CreateOptions): Number.Chainable
+	secondsUntil(d?: string|number|Date, options?: CreateOptions): Number.Chainable
 	set(set: Object, reset?: boolean): Chainable
 	set(milliseconds: number): Chainable
 	set(year: number, month: number, day?: number, hour?: number, minute?: number, second?: number, millliseconds?: undefined): Chainable
@@ -106,12 +106,12 @@ type Chainable<Raw extends Date = Date> = ChainableWith<Raw, {
 	short(localeCode?: string): String.Chainable
 	weeksAgo(): Number.Chainable
 	weeksFromNow(): Number.Chainable
-	weeksSince(d: string|number|Date, options?: DateCreateOptions): Number.Chainable
-	weeksUntil(d?: string|number|Date, options?: DateCreateOptions): Number.Chainable
+	weeksSince(d: string|number|Date, options?: CreateOptions): Number.Chainable
+	weeksUntil(d?: string|number|Date, options?: CreateOptions): Number.Chainable
 	yearsAgo(): Number.Chainable
 	yearsFromNow(): Number.Chainable
-	yearsSince(d: string|number|Date, options?: DateCreateOptions): Number.Chainable
-	yearsUntil(d?: string|number|Date, options?: DateCreateOptions): Number.Chainable
+	yearsSince(d: string|number|Date, options?: CreateOptions): Number.Chainable
+	yearsUntil(d?: string|number|Date, options?: CreateOptions): Number.Chainable
 	getDate(): Number.Chainable
 	getDay(): Number.Chainable
 	getFullYear(): Number.Chainable

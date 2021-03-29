@@ -1,6 +1,6 @@
 import type { SugarNamespace } from '../sugar'
 import type Chainable from './chainable'
-import type { NumberOptions, DateCreateOptions } from './options'
+import type { Options, DateCreateOptions } from './options'
 
 export default interface Constructor extends SugarNamespace {
 	(raw?: number): Chainable<number>
@@ -124,5 +124,5 @@ export default interface Constructor extends SugarNamespace {
 	yearsFromNow(instance: number): Date
 	getOption<T>(name: string): T
 	setOption(name: string, value: any): void
-	setOption(options: NumberOptions): void
+	setOption(options: Options): void
 }

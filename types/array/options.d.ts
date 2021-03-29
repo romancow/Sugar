@@ -1,8 +1,8 @@
-export type mapFn<T, U> = (el: T, i: number, arr: T[]) => U
-export type sortMapFn<T, U> = (el: T) => U
-export type searchFn<T> = (el: T, i: number, arr: T[]) => boolean
+export type MapFn<T, U> = (el: T, i: number, arr: T[]) => U
+export type SortMapFn<T, U> = (el: T) => U
+export type SearchFn<T> = (el: T, i: number, arr: T[]) => boolean
 
-export interface ArrayOptions {
+export interface Options {
 	sortIgnore?: RegExp
 	sortIgnoreCase?: boolean
 	sortNatural?: boolean

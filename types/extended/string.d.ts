@@ -33,12 +33,12 @@ declare global {
 		parameterize(): string
 		remove(f: string|RegExp): string
 		removeAll(f: string|RegExp): string
-		removeTags(tag?: string, replace?: string|sugarjs.String.replaceFn): string
+		removeTags(tag?: string, replace?: string|sugarjs.String.ReplaceFn): string
 		replaceAll(f: string|RegExp, ...args: any[]): string
 		reverse(): string
 		shift<T>(n: number): T[]
 		spacify(): string
-		stripTags(tag?: string, replace?: string|sugarjs.String.replaceFn): string
+		stripTags(tag?: string, replace?: string|sugarjs.String.ReplaceFn): string
 		titleize(): string
 		to(index?: number): string
 		toNumber(base?: number): number

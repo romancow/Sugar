@@ -1,12 +1,12 @@
 import type { SugarNamespace } from '../sugar'
 import type Chainable from './chainable'
-import type { Locale, DateOptions, DateCreateOptions } from './options'
+import type { Locale, Options, CreateOptions } from './options'
 
 export default interface Constructor extends SugarNamespace {
-	(d?: string|number|Date, options?: DateCreateOptions): Chainable<Date>
-	new(d?: string|number|Date, options?: DateCreateOptions): Chainable<Date>
+	(d?: string|number|Date, options?: CreateOptions): Chainable<Date>
+	new(d?: string|number|Date, options?: CreateOptions): Chainable<Date>
 	addLocale(localeCode: string, def: Object): Locale
-	create(d?: string|number|Date, options?: DateCreateOptions): Date
+	create(d?: string|number|Date, options?: CreateOptions): Date
 	getAllLocaleCodes(): string[]
 	getAllLocales(): Array<Locale>
 	getLocale(localeCode?: string): Locale
@@ -33,8 +33,8 @@ export default interface Constructor extends SugarNamespace {
 	daysAgo(instance: Date): number
 	daysFromNow(instance: Date): number
 	daysInMonth(instance: Date): number
-	daysSince(instance: Date, d: string|number|Date, options?: DateCreateOptions): number
-	daysUntil(instance: Date, d?: string|number|Date, options?: DateCreateOptions): number
+	daysSince(instance: Date, d: string|number|Date, options?: CreateOptions): number
+	daysUntil(instance: Date, d?: string|number|Date, options?: CreateOptions): number
 	endOfDay(instance: Date, localeCode?: string): Date
 	endOfISOWeek(instance: Date): Date
 	endOfMonth(instance: Date, localeCode?: string): Date
@@ -42,15 +42,15 @@ export default interface Constructor extends SugarNamespace {
 	endOfYear(instance: Date, localeCode?: string): Date
 	format(instance: Date, f?: string, localeCode?: string): string
 	full(instance: Date, localeCode?: string): string
-	get(instance: Date, d: string|number|Date, options?: DateCreateOptions): Date
+	get(instance: Date, d: string|number|Date, options?: CreateOptions): Date
 	getISOWeek(instance: Date): number
 	getUTCOffset(instance: Date, iso?: boolean): string
 	getUTCWeekday(instance: Date): number
 	getWeekday(instance: Date): number
 	hoursAgo(instance: Date): number
 	hoursFromNow(instance: Date): number
-	hoursSince(instance: Date, d: string|number|Date, options?: DateCreateOptions): number
-	hoursUntil(instance: Date, d?: string|number|Date, options?: DateCreateOptions): number
+	hoursSince(instance: Date, d: string|number|Date, options?: CreateOptions): number
+	hoursUntil(instance: Date, d?: string|number|Date, options?: CreateOptions): number
 	is(instance: Date, d: string|number|Date, margin?: number): boolean
 	isAfter(instance: Date, d: string|number|Date, margin?: number): boolean
 	isBefore(instance: Date, d: string|number|Date, margin?: number): boolean
@@ -86,16 +86,16 @@ export default interface Constructor extends SugarNamespace {
 	medium(instance: Date, localeCode?: string): string
 	millisecondsAgo(instance: Date): number
 	millisecondsFromNow(instance: Date): number
-	millisecondsSince(instance: Date, d: string|number|Date, options?: DateCreateOptions): number
-	millisecondsUntil(instance: Date, d?: string|number|Date, options?: DateCreateOptions): number
+	millisecondsSince(instance: Date, d: string|number|Date, options?: CreateOptions): number
+	millisecondsUntil(instance: Date, d?: string|number|Date, options?: CreateOptions): number
 	minutesAgo(instance: Date): number
 	minutesFromNow(instance: Date): number
-	minutesSince(instance: Date, d: string|number|Date, options?: DateCreateOptions): number
-	minutesUntil(instance: Date, d?: string|number|Date, options?: DateCreateOptions): number
+	minutesSince(instance: Date, d: string|number|Date, options?: CreateOptions): number
+	minutesUntil(instance: Date, d?: string|number|Date, options?: CreateOptions): number
 	monthsAgo(instance: Date): number
 	monthsFromNow(instance: Date): number
-	monthsSince(instance: Date, d: string|number|Date, options?: DateCreateOptions): number
-	monthsUntil(instance: Date, d?: string|number|Date, options?: DateCreateOptions): number
+	monthsSince(instance: Date, d: string|number|Date, options?: CreateOptions): number
+	monthsUntil(instance: Date, d?: string|number|Date, options?: CreateOptions): number
 	relative(instance: Date, localeCode?: string, relativeFn?: (num: number, unit: number, ms: number, loc: Locale) => string): string
 	relative(instance: Date, relativeFn?: (num: number, unit: number, ms: number, loc: Locale) => string): string
 	relativeTo(instance: Date, d: string|number|Date, localeCode?: string): string
@@ -105,8 +105,8 @@ export default interface Constructor extends SugarNamespace {
 	rewind(instance: Date, year: number, month: number, day?: number, hour?: number, minute?: number, second?: number, millliseconds?: undefined): Date
 	secondsAgo(instance: Date): number
 	secondsFromNow(instance: Date): number
-	secondsSince(instance: Date, d: string|number|Date, options?: DateCreateOptions): number
-	secondsUntil(instance: Date, d?: string|number|Date, options?: DateCreateOptions): number
+	secondsSince(instance: Date, d: string|number|Date, options?: CreateOptions): number
+	secondsUntil(instance: Date, d?: string|number|Date, options?: CreateOptions): number
 	set(instance: Date, set: Object, reset?: boolean): Date
 	set(instance: Date, milliseconds: number): Date
 	set(instance: Date, year: number, month: number, day?: number, hour?: number, minute?: number, second?: number, millliseconds?: undefined): Date
@@ -116,13 +116,13 @@ export default interface Constructor extends SugarNamespace {
 	short(instance: Date, localeCode?: string): string
 	weeksAgo(instance: Date): number
 	weeksFromNow(instance: Date): number
-	weeksSince(instance: Date, d: string|number|Date, options?: DateCreateOptions): number
-	weeksUntil(instance: Date, d?: string|number|Date, options?: DateCreateOptions): number
+	weeksSince(instance: Date, d: string|number|Date, options?: CreateOptions): number
+	weeksUntil(instance: Date, d?: string|number|Date, options?: CreateOptions): number
 	yearsAgo(instance: Date): number
 	yearsFromNow(instance: Date): number
-	yearsSince(instance: Date, d: string|number|Date, options?: DateCreateOptions): number
-	yearsUntil(instance: Date, d?: string|number|Date, options?: DateCreateOptions): number
+	yearsSince(instance: Date, d: string|number|Date, options?: CreateOptions): number
+	yearsUntil(instance: Date, d?: string|number|Date, options?: CreateOptions): number
 	getOption<T>(name: string): T
 	setOption(name: string, value: any): void
-	setOption(options: DateOptions): void
+	setOption(options: Options): void
 }

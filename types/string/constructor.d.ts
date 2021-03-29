@@ -1,6 +1,6 @@
 import type { SugarNamespace } from '../sugar'
 import type Chainable from './chainable'
-import type { replaceFn } from './options'
+import type { ReplaceFn } from './options'
 
 export default interface Constructor extends SugarNamespace {
 	(raw?: string): Chainable<string>;
@@ -33,12 +33,12 @@ export default interface Constructor extends SugarNamespace {
 	parameterize(instance: string): string;
 	remove(instance: string, f: string|RegExp): string;
 	removeAll(instance: string, f: string|RegExp): string;
-	removeTags(instance: string, tag?: string, replace?: string|replaceFn): string;
+	removeTags(instance: string, tag?: string, replace?: string|ReplaceFn): string;
 	replaceAll(instance: string, f: string|RegExp, ...args: any[]): string;
 	reverse(instance: string): string;
 	shift<T>(instance: string, n: number): T[];
 	spacify(instance: string): string;
-	stripTags(instance: string, tag?: string, replace?: string|replaceFn): string;
+	stripTags(instance: string, tag?: string, replace?: string|ReplaceFn): string;
 	titleize(instance: string): string;
 	to(instance: string, index?: number): string;
 	toNumber(instance: string, base?: number): number;
