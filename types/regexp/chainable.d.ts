@@ -1,12 +1,12 @@
 import type { ChainableWith } from '../object/chainable'
-import type { SugarDefaultChainable } from '../sugar'
+import type { String, Object } from '../namespaces'
 
 type Chainable<Raw extends RegExp = RegExp> = ChainableWith<Raw, {
-	addFlags(flags: string): SugarDefaultChainable<RegExp>
-	getFlags(): SugarDefaultChainable<string>
-	removeFlags(flags: string): SugarDefaultChainable<RegExp>
-	setFlags(flags: string): SugarDefaultChainable<RegExp>
-	exec(string: string): SugarDefaultChainable<RegExpExecArray | null>
-	test(string: string): SugarDefaultChainable<boolean>
+	addFlags(flags: string): Chainable
+	getFlags(): String.Chainable
+	removeFlags(flags: string): Chainable
+	setFlags(flags: string): Chainable
+	exec(string: string): Object.Chainable<RegExpExecArray | null>
+	test(string: string): Object.Chainable<boolean>
 }>
 export default Chainable

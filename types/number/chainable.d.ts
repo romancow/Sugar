@@ -1,126 +1,126 @@
 import type { ChainableWith } from '../object/chainable'
-import type { SugarDefaultChainable } from '../sugar'
+import type { String, Date, Array, Object } from '../namespaces'
 import type { DateCreateOptions } from './options'
 
 type Chainable<Raw extends Number = Number> = ChainableWith<Raw, {
-	abbr(precision?: number): SugarDefaultChainable<string>
-	abs(): SugarDefaultChainable<number>
-	acos(): SugarDefaultChainable<number>
-	asin(): SugarDefaultChainable<number>
-	atan(): SugarDefaultChainable<number>
-	bytes(precision?: number, binary?: boolean, units?: string): SugarDefaultChainable<string>
-	cap(max?: number): SugarDefaultChainable<number>
-	ceil(precision?: number): SugarDefaultChainable<number>
-	chr(): SugarDefaultChainable<string>
-	clamp(start?: number, end?: number): SugarDefaultChainable<number>
-	cos(): SugarDefaultChainable<number>
-	day(): SugarDefaultChainable<number>
-	dayAfter(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	dayAgo(): SugarDefaultChainable<Date>
-	dayBefore(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	dayFromNow(): SugarDefaultChainable<Date>
-	days(): SugarDefaultChainable<number>
-	daysAfter(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	daysAgo(): SugarDefaultChainable<Date>
-	daysBefore(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	daysFromNow(): SugarDefaultChainable<Date>
-	downto<T>(num: number, step?: number, everyFn?: (el: T, i: number, r: Range) => SugarDefaultChainable<void>): SugarDefaultChainable<T[]>
-	downto<T>(num: number, everyFn?: (el: T, i: number, r: Range) => SugarDefaultChainable<void>): SugarDefaultChainable<T[]>
-	duration(localeCode?: string): SugarDefaultChainable<string>
-	exp(): SugarDefaultChainable<number>
-	floor(precision?: number): SugarDefaultChainable<number>
-	format(place?: number): SugarDefaultChainable<string>
-	hex(pad?: number): SugarDefaultChainable<string>
-	hour(): SugarDefaultChainable<number>
-	hourAfter(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	hourAgo(): SugarDefaultChainable<Date>
-	hourBefore(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	hourFromNow(): SugarDefaultChainable<Date>
-	hours(): SugarDefaultChainable<number>
-	hoursAfter(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	hoursAgo(): SugarDefaultChainable<Date>
-	hoursBefore(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	hoursFromNow(): SugarDefaultChainable<Date>
-	isEven(): SugarDefaultChainable<boolean>
-	isInteger(): SugarDefaultChainable<boolean>
-	isMultipleOf(num: number): SugarDefaultChainable<boolean>
-	isOdd(): SugarDefaultChainable<boolean>
-	log(base?: number): SugarDefaultChainable<number>
-	metric(precision?: number, units?: string): SugarDefaultChainable<string>
-	millisecond(): SugarDefaultChainable<number>
-	millisecondAfter(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	millisecondAgo(): SugarDefaultChainable<Date>
-	millisecondBefore(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	millisecondFromNow(): SugarDefaultChainable<Date>
-	milliseconds(): SugarDefaultChainable<number>
-	millisecondsAfter(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	millisecondsAgo(): SugarDefaultChainable<Date>
-	millisecondsBefore(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	millisecondsFromNow(): SugarDefaultChainable<Date>
-	minute(): SugarDefaultChainable<number>
-	minuteAfter(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	minuteAgo(): SugarDefaultChainable<Date>
-	minuteBefore(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	minuteFromNow(): SugarDefaultChainable<Date>
-	minutes(): SugarDefaultChainable<number>
-	minutesAfter(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	minutesAgo(): SugarDefaultChainable<Date>
-	minutesBefore(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	minutesFromNow(): SugarDefaultChainable<Date>
-	month(): SugarDefaultChainable<number>
-	monthAfter(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	monthAgo(): SugarDefaultChainable<Date>
-	monthBefore(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	monthFromNow(): SugarDefaultChainable<Date>
-	months(): SugarDefaultChainable<number>
-	monthsAfter(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	monthsAgo(): SugarDefaultChainable<Date>
-	monthsBefore(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	monthsFromNow(): SugarDefaultChainable<Date>
-	ordinalize(): SugarDefaultChainable<string>
-	pad(place?: number, sign?: boolean, base?: number): SugarDefaultChainable<string>
-	pow(): SugarDefaultChainable<number>
-	round(precision?: number): SugarDefaultChainable<number>
-	second(): SugarDefaultChainable<number>
-	secondAfter(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	secondAgo(): SugarDefaultChainable<Date>
-	secondBefore(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	secondFromNow(): SugarDefaultChainable<Date>
-	seconds(): SugarDefaultChainable<number>
-	secondsAfter(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	secondsAgo(): SugarDefaultChainable<Date>
-	secondsBefore(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	secondsFromNow(): SugarDefaultChainable<Date>
-	sin(): SugarDefaultChainable<number>
-	sqrt(): SugarDefaultChainable<number>
-	tan(): SugarDefaultChainable<number>
-	times<T>(indexMapFn: (i: number) => SugarDefaultChainable<any>): SugarDefaultChainable<T>
-	toNumber(): SugarDefaultChainable<number>
-	upto<T>(num: number, step?: number, everyFn?: (el: T, i: number, r: Range) => SugarDefaultChainable<void>): SugarDefaultChainable<T[]>
-	upto<T>(num: number, everyFn?: (el: T, i: number, r: Range) => SugarDefaultChainable<void>): SugarDefaultChainable<T[]>
-	week(): SugarDefaultChainable<number>
-	weekAfter(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	weekAgo(): SugarDefaultChainable<Date>
-	weekBefore(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	weekFromNow(): SugarDefaultChainable<Date>
-	weeks(): SugarDefaultChainable<number>
-	weeksAfter(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	weeksAgo(): SugarDefaultChainable<Date>
-	weeksBefore(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	weeksFromNow(): SugarDefaultChainable<Date>
-	year(): SugarDefaultChainable<number>
-	yearAfter(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	yearAgo(): SugarDefaultChainable<Date>
-	yearBefore(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	yearFromNow(): SugarDefaultChainable<Date>
-	years(): SugarDefaultChainable<number>
-	yearsAfter(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	yearsAgo(): SugarDefaultChainable<Date>
-	yearsBefore(d: string|number|Date, options?: DateCreateOptions): SugarDefaultChainable<Date>
-	yearsFromNow(): SugarDefaultChainable<Date>
-	toExponential(fractionDigits?: number): SugarDefaultChainable<string>
-	toFixed(fractionDigits?: number): SugarDefaultChainable<string>
-	toLocaleString(locales?: string | string[], options?: Intl.NumberFormatOptions): SugarDefaultChainable<string>
-	toPrecision(precision?: number): SugarDefaultChainable<string>
+	abbr(precision?: number): String.Chainable
+	abs(): Chainable
+	acos(): Chainable
+	asin(): Chainable
+	atan(): Chainable
+	bytes(precision?: number, binary?: boolean, units?: string): String.Chainable
+	cap(max?: number): Chainable
+	ceil(precision?: number): Chainable
+	chr(): String.Chainable
+	clamp(start?: number, end?: number): Chainable
+	cos(): Chainable
+	day(): Chainable
+	dayAfter(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	dayAgo(): Date.Chainable
+	dayBefore(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	dayFromNow(): Date.Chainable
+	days(): Chainable
+	daysAfter(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	daysAgo(): Date.Chainable
+	daysBefore(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	daysFromNow(): Date.Chainable
+	downto(num: number, step?: number, everyFn?: (el: number, i: number, r: Range) => void): Array.Chainable<number>
+	downto(num: number, everyFn?: (el: number, i: number, r: Range) => void): Array.Chainable<number>
+	duration(localeCode?: string): String.Chainable
+	exp(): Chainable
+	floor(precision?: number): Chainable
+	format(place?: number): String.Chainable
+	hex(pad?: number): String.Chainable
+	hour(): Chainable
+	hourAfter(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	hourAgo(): Date.Chainable
+	hourBefore(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	hourFromNow(): Date.Chainable
+	hours(): Chainable
+	hoursAfter(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	hoursAgo(): Date.Chainable
+	hoursBefore(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	hoursFromNow(): Date.Chainable
+	isEven(): Object.Chainable<boolean>
+	isInteger(): Object.Chainable<boolean>
+	isMultipleOf(num: number): Object.Chainable<boolean>
+	isOdd(): Object.Chainable<boolean>
+	log(base?: number): Chainable
+	metric(precision?: number, units?: string): String.Chainable
+	millisecond(): Chainable
+	millisecondAfter(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	millisecondAgo(): Date.Chainable
+	millisecondBefore(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	millisecondFromNow(): Date.Chainable
+	milliseconds(): Chainable
+	millisecondsAfter(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	millisecondsAgo(): Date.Chainable
+	millisecondsBefore(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	millisecondsFromNow(): Date.Chainable
+	minute(): Chainable
+	minuteAfter(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	minuteAgo(): Date.Chainable
+	minuteBefore(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	minuteFromNow(): Date.Chainable
+	minutes(): Chainable
+	minutesAfter(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	minutesAgo(): Date.Chainable
+	minutesBefore(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	minutesFromNow(): Date.Chainable
+	month(): Chainable
+	monthAfter(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	monthAgo(): Date.Chainable
+	monthBefore(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	monthFromNow(): Date.Chainable
+	months(): Chainable
+	monthsAfter(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	monthsAgo(): Date.Chainable
+	monthsBefore(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	monthsFromNow(): Date.Chainable
+	ordinalize(): String.Chainable
+	pad(place?: number, sign?: boolean, base?: number): String.Chainable
+	pow(): Chainable
+	round(precision?: number): Chainable
+	second(): Chainable
+	secondAfter(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	secondAgo(): Date.Chainable
+	secondBefore(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	secondFromNow(): Date.Chainable
+	seconds(): Chainable
+	secondsAfter(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	secondsAgo(): Date.Chainable
+	secondsBefore(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	secondsFromNow(): Date.Chainable
+	sin(): Chainable
+	sqrt(): Chainable
+	tan(): Chainable
+	times<T>(indexMapFn: (i: number) => T): Array.Chainable<T>
+	toNumber(): Chainable
+	upto(num: number, step?: number, everyFn?: (el: number, i: number, r: Range) => void): Array.Chainable<number>
+	upto(num: number, everyFn?: (el: number, i: number, r: Range) => void): Array.Chainable<number>
+	week(): Chainable
+	weekAfter(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	weekAgo(): Date.Chainable
+	weekBefore(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	weekFromNow(): Date.Chainable
+	weeks(): Chainable
+	weeksAfter(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	weeksAgo(): Date.Chainable
+	weeksBefore(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	weeksFromNow(): Date.Chainable
+	year(): Chainable
+	yearAfter(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	yearAgo(): Date.Chainable
+	yearBefore(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	yearFromNow(): Date.Chainable
+	years(): Chainable
+	yearsAfter(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	yearsAgo(): Date.Chainable
+	yearsBefore(d: string|number|Date, options?: DateCreateOptions): Date.Chainable
+	yearsFromNow(): Date.Chainable
+	toExponential(fractionDigits?: number): String.Chainable
+	toFixed(fractionDigits?: number): String.Chainable
+	toLocaleString(locales?: string | string[], options?: Intl.NumberFormatOptions): String.Chainable
+	toPrecision(precision?: number): String.Chainable
 }>
 export default Chainable

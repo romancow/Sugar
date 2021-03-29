@@ -1,14 +1,5 @@
 import type { Array, Date, Function, Number, Object, RegExp, String } from './namespaces'
 
-export type SugarDefaultChainable<RawValue> =
-	Array.Chainable<any, RawValue> &
-	Date.Chainable<RawValue> &
-	Function.Chainable<RawValue> &
-	Number.Chainable<RawValue> &
-	Object.Chainable<RawValue> &
-	RegExp.Chainable<RawValue> &
-	String.Chainable<RawValue>
-
 type NativeConstructor =
 	ArrayConstructor |
 	DateConstructor |

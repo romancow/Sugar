@@ -1,20 +1,20 @@
 import type { ChainableWith } from '../object/chainable'
-import type { SugarDefaultChainable } from '../sugar'
+import type { UnknownChainable } from '../namespaces'
 
 type Chainable<Raw extends Function = Function> = ChainableWith<Raw, {
-	after(n: number): SugarDefaultChainable<Function>
-	cancel(): SugarDefaultChainable<Function>
-	debounce(ms?: number): SugarDefaultChainable<Function>
-	delay(ms?: number, ...args: any[]): SugarDefaultChainable<Function>
-	every(ms?: number, ...args: any[]): SugarDefaultChainable<Function>
-	lazy(ms?: number, immediate?: boolean, limit?: number): SugarDefaultChainable<Function>
-	lock(n?: number): SugarDefaultChainable<Function>
-	memoize(hashFn?: string|Function, limit?: number): SugarDefaultChainable<Function>
-	once(): SugarDefaultChainable<Function>
-	partial(...args: any[]): SugarDefaultChainable<Function>
-	throttle(ms?: number): SugarDefaultChainable<Function>
-	apply(thisArg: any, argArray?: any): SugarDefaultChainable<any>
-	bind(thisArg: any, ...argArray: any[]): SugarDefaultChainable<any>
-	call(thisArg: any, ...argArray: any[]): SugarDefaultChainable<any>
+	after(n: number): Chainable
+	cancel(): Chainable
+	debounce(ms?: number): Chainable
+	delay(ms?: number, ...args: any[]): Chainable
+	every(ms?: number, ...args: any[]): Chainable
+	lazy(ms?: number, immediate?: boolean, limit?: number): Chainable
+	lock(n?: number): Chainable
+	memoize(hashFn?: string|Function, limit?: number): Chainable
+	once(): Chainable
+	partial(...args: any[]): Chainable
+	throttle(ms?: number): Chainable
+	apply<T = unknown>(thisArg: any, argArray?: any): UnknownChainable<T>
+	bind<T = unknown>(thisArg: any, ...argArray: any[]): UnknownChainable<T>
+	call<T = unknown>(thisArg: any, ...argArray: any[]): UnknownChainable<T>
 }>
 export default Chainable
