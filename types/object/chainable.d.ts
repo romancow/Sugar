@@ -9,12 +9,12 @@ export default interface Chainable<Raw extends Object> {
 	toString: () => string
 	toLocaleString(): String.Chainable
 
-	add<T>(obj: Object, options?: MergeOptions<T>): Chainable<Object>
-	addAll<T>(sources: Array<Object>, options?: MergeOptions<T>): Chainable<Object>
+	add<T, S>(obj: Object, options?: MergeOptions<T, S>): Chainable<Object>
+	addAll<T, S>(sources: Array<Object>, options?: MergeOptions<T, S>): Chainable<Object>
 	average<T, U>(map?: string|MapFn<T, U>): Number.Chainable
 	clone(deep?: boolean): Chainable<Raw>
 	count<T>(search: T|SearchFn<T>): Number.Chainable
-	defaults<T>(sources: Array<Object>, options?: MergeOptions<T>): Chainable<Object>
+	defaults<T, S>(sources: Array<Object>, options?: MergeOptions<T, S>): Chainable<Object>
 	every<T>(search: T|SearchFn<T>): Chainable<boolean>
 	exclude<T>(search: T|SearchFn<T>): Chainable<Object>
 	filter<T>(search: T|SearchFn<T>): Chainable<Object>
@@ -45,8 +45,8 @@ export default interface Chainable<Raw extends Object> {
 	max<T, U>(all?: boolean, map?: string|MapFn<T, U>): UnknownChainable<keyof Raw> | Chainable<Object>
 	max<T, U>(map?: string|MapFn<T, U>): UnknownChainable<keyof Raw>
 	median<T, U>(map?: string|MapFn<T, U>): Number.Chainable
-	merge<T>(source: Object, options?: MergeOptions<T>): Chainable<Object>
-	mergeAll<T>(sources: Array<Object>, options?: MergeOptions<T>): Chainable<Object>
+	merge<T, S>(source: Object, options?: MergeOptions<T, S>): Chainable<Object>
+	mergeAll<T, S>(sources: Array<Object>, options?: MergeOptions<T, S>): Chainable<Object>
 	min<T, U>(all?: boolean, map?: string|MapFn<T, U>): UnknownChainable<keyof Raw> | Chainable<Object>
 	min<T, U>(map?: string|MapFn<T, U>): UnknownChainable<keyof Raw>
 	most<T, U>(all?: boolean, map?: string|MapFn<T, U>): UnknownChainable<keyof Raw> | Chainable<Object>
@@ -62,6 +62,6 @@ export default interface Chainable<Raw extends Object> {
 	subtract(obj: Object): Chainable<Object>
 	sum<T, U>(map?: string|MapFn<T, U>): Number.Chainable
 	tap(tapFn: (obj: Raw) => void): Chainable<Raw>
-	toQueryString<T, U>(options?: QueryStringOptions<T, U>): String.Chainable
+	toQueryString<T>(options?: QueryStringOptions<T>): String.Chainable
 	values(): Array.Chainable<Raw[keyof Raw]>
 }

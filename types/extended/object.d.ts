@@ -2,13 +2,13 @@ import type { SearchFn, MapFn, QueryStringParseOptions, QueryStringOptions, Merg
 
 declare global {
 	interface ObjectConstructor {
-		fromQueryString<T, U>(str: string, options?: QueryStringParseOptions<T, U>): Object
-		add<T>(instance: Object, obj: Object, options?: MergeOptions<T>): Object
-		addAll<T>(instance: Object, sources: Array<Object>, options?: MergeOptions<T>): Object
+		fromQueryString<T>(str: string, options?: QueryStringParseOptions<T>): Object
+		add<T, S>(instance: Object, obj: Object, options?: MergeOptions<T, S>): Object
+		addAll<T, S>(instance: Object, sources: Array<Object>, options?: MergeOptions<T, S>): Object
 		average<T, U>(instance: Object, map?: string|MapFn<T, U>): number
 		clone(instance: Object, deep?: boolean): Object
 		count<T>(instance: Object, search: T|SearchFn<T>): number
-		defaults<T>(instance: Object, sources: Array<Object>, options?: MergeOptions<T>): Object
+		defaults<T, S>(instance: Object, sources: Array<Object>, options?: MergeOptions<T, S>): Object
 		every<T>(instance: Object, search: T|SearchFn<T>): boolean
 		exclude<T>(instance: Object, search: T|SearchFn<T>): Object
 		filter<T>(instance: Object, search: T|SearchFn<T>): T[]
@@ -39,8 +39,8 @@ declare global {
 		max<T, U>(instance: Object, all?: boolean, map?: string|MapFn<T, U>): T
 		max<T, U>(instance: Object, map?: string|MapFn<T, U>): T
 		median<T, U>(instance: Object, map?: string|MapFn<T, U>): number
-		merge<T>(instance: Object, source: Object, options?: MergeOptions<T>): Object
-		mergeAll<T>(instance: Object, sources: Array<Object>, options?: MergeOptions<T>): Object
+		merge<T, S>(instance: Object, source: Object, options?: MergeOptions<T, S>): Object
+		mergeAll<T, S>(instance: Object, sources: Array<Object>, options?: MergeOptions<T, S>): Object
 		min<T, U>(instance: Object, all?: boolean, map?: string|MapFn<T, U>): T
 		min<T, U>(instance: Object, map?: string|MapFn<T, U>): T
 		most<T, U>(instance: Object, all?: boolean, map?: string|MapFn<T, U>): T
@@ -56,7 +56,7 @@ declare global {
 		subtract(instance: Object, obj: Object): Object
 		sum<T, U>(instance: Object, map?: string|MapFn<T, U>): number
 		tap(instance: Object, tapFn: (obj: Object) => any): Object
-		toQueryString<T, U>(instance: Object, options?: QueryStringOptions<T, U>): Object
+		toQueryString<T>(instance: Object, options?: QueryStringOptions<T>): string
 		values<T>(instance: Object): T[]
 	}
 }

@@ -1,24 +1,26 @@
-export type ResolveFn<T> = (key: string, targetVal: T, sourceVal: T, target: Object, source: Object) => boolean
-export type SearchFn<T> = (key: string, val: T, obj: Object) => boolean
-export type MapFn<T, U> = (val: T, key: string, obj: Object) => U
+import type Sugar from '../sugar'
 
-export interface QueryStringParseOptions<T, U> {
+export type ResolveFn<T, S> = <K extends keyof (T | S)>(key: K, targetVal: T[K], sourceVal: S[K], target: T, source: S) => any | undefined | Sugar
+export type SearchFn<T> = <K extends keyof T>(val: T[K], key: K, obj: T) => boolean
+export type MapFn<T, U> = <K extends keyof T>(val: T[K], key: K, obj: T) => U
+
+export interface QueryStringParseOptions<T extends Object> {
 	deep?: boolean
 	auto?: boolean
-	transform?: (key: string, val: T, obj: Object) => U
+	transform?: <K extends keyof T>(value: string, key: K, obj: Partial<T>) => T[K] | undefined
 	separator?: string
 }
 
-export interface QueryStringOptions<T, U> {
+export interface QueryStringOptions<T extends Object> {
 	deep?: boolean
 	prefix?: string
-	transform?: (key: string, val: T, obj: Object) => U
+	transform?: <K extends keyof T>(val: T[K], key: K, obj: T) => any
 	separator?: string
 }
 
-export interface MergeOptions<T> {
+export interface MergeOptions<T extends Object, S extends Object> {
 	deep?: boolean
 	hidden?: boolean
 	descriptor?: boolean
-	resolve?: boolean | ResolveFn<T>
+	resolve?: boolean | ResolveFn<T, S>
 }

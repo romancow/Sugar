@@ -1,13 +1,13 @@
 export interface Locale {
-	addFormat(src:string, to?: Array<string>): void
+	addFormat(src: string, to?: readonly string[]): void
 	getDuration(ms: number): string
 	getFirstDayOfWeek(): number
 	getFirstDayOfWeekYear(): number
-	getMonthName(n: number): string
-	getWeekdayName(n: number): string
+	getMonthName(num: number): string
+	getWeekdayName(num: number): string
 }
 export interface Options {
-	newDateInternal: Function
+	newDateInternal: () => Date
 }
 
 export interface CreateOptions {
@@ -17,5 +17,5 @@ export interface CreateOptions {
 	fromUTC?: boolean
 	setUTC?: boolean
 	clone?: boolean
-	params?: Object
+	params?: { [param: string]: string | number }
 }
