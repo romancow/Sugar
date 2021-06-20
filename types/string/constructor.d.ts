@@ -2,7 +2,7 @@ import type { SugarNamespace } from '../sugar'
 import type Chainable from './chainable'
 import type { ReplaceFn } from './options'
 
-export default interface Constructor extends SugarNamespace {
+export default interface Constructor extends SugarNamespace<StringConstructor> {
 	(raw?: string): Chainable
 	new(raw?: string): Chainable
 	range(start?: string, end?: string): Range;

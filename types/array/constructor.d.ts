@@ -2,7 +2,7 @@ import type { SugarNamespace } from '../sugar'
 import type Chainable from './chainable'
 import type { MapFn, SearchFn, SortMapFn, Options } from './options'
 
-export default interface Constructor extends SugarNamespace {
+export default interface Constructor extends SugarNamespace<ArrayConstructor> {
 	<T>(obj?: number | ArrayLike<T>, clone?: boolean): Chainable<T>
 	new<T>(obj?: number|ArrayLike<T>, clone?: boolean): Chainable<T>
 	construct<T>(n: number, indexMapFn: (i: number) => T): T[]

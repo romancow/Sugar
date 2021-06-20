@@ -1,7 +1,7 @@
 import type { SugarNamespace } from '../sugar'
 import type Chainable from './chainable'
 
-export default interface Constructor extends SugarNamespace {
+export default interface Constructor extends SugarNamespace<RegExpConstructor> {
 	(raw?: RegExp): Chainable
 	new(raw?: RegExp): Chainable
 	escape(str?: string): string

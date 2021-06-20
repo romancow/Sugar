@@ -2,7 +2,7 @@ import type { SugarNamespace } from '../sugar'
 import type Chainable from './chainable'
 import type { Locale, Options, CreateOptions } from './options'
 
-export default interface Constructor extends SugarNamespace {
+export default interface Constructor extends SugarNamespace<DateConstructor> {
 	(d?: string|number|Date, options?: CreateOptions): Chainable
 	new(d?: string|number|Date, options?: CreateOptions): Chainable
 	addLocale(localeCode: string, def: Object): Locale

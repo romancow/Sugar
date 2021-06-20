@@ -2,7 +2,7 @@ import type { SugarNamespace } from '../sugar'
 import type Chainable from './chainable'
 import type { SearchFn, MapFn, QueryStringParseOptions, QueryStringOptions, MergeOptions } from './options'
 
-export default interface Constructor extends SugarNamespace {
+export default interface Constructor extends SugarNamespace<ObjectConstructor> {
 	(raw?: Object): Chainable<Object>
 	new(raw?: Object): Chainable<Object>
 	fromQueryString<T>(str: string, options?: QueryStringParseOptions<T>): Object

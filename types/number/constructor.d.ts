@@ -2,7 +2,7 @@ import type { SugarNamespace } from '../sugar'
 import type Chainable from './chainable'
 import type { Options, DateCreateOptions } from './options'
 
-export default interface Constructor extends SugarNamespace {
+export default interface Constructor extends SugarNamespace<NumberConstructor> {
 	(raw?: number): Chainable
 	new(raw?: number): Chainable
 	random(n1?: number, n2?: number): number
